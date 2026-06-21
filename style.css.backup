@@ -1,11 +1,8 @@
 /* ========================================
-   深色绿色主题 - 个人网站样式
-   设计理念：层次感、深度感、高级感
+   绿色系个人网站样式
    ======================================== */
 
-/* ========================================
-   颜色变量 - 深色系绿色主题
-   ======================================== */
+/* 颜色变量 - 深色系绿色主题 */
 :root {
     /* 主色系：深绿色 */
     --primary: #1b4332;          /* 主绿色（深） */
@@ -22,7 +19,7 @@
     /* 背景层次 */
     --bg-primary: #f8fdf9;       /* 主背景（极浅绿白） */
     --bg-secondary: #e6f2ea;     /* 次背景（浅绿） */
-    --bg-tertiary: #d1ecd9;     /* 第三背景（稍深绿） */
+    --bg-tertiary: #d1ecd9;      /* 第三背景（稍深绿） */
     --bg-card: #ffffff;           /* 卡片背景（纯白） */
     
     /* 文字颜色 */
@@ -55,16 +52,14 @@
     --transition-normal: 300ms;
     --transition-slow: 500ms;
     
-    /* 缓动函数 */
+    /* 高级感缓动函数 */
     --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
     --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
 }
 
-/* ========================================
-   基础样式重置
-   ======================================== */
+/* 基础样式 */
 * {
     margin: 0;
     padding: 0;
@@ -73,7 +68,6 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 80px; /* 导航栏高度 */
 }
 
 body {
@@ -89,7 +83,7 @@ body {
 a {
     text-decoration: none;
     color: inherit;
-    transition: all var(--transition-normal) var(--ease-smooth);
+    transition: all 0.3s ease;
 }
 
 ul {
@@ -205,6 +199,18 @@ ul {
     background-clip: text;
 }
 
+.highlight::after {
+    content: '';
+    position: absolute;
+    bottom: 0.2rem;
+    left: 0;
+    right: 0;
+    height: 0.6rem;
+    background: var(--primary-lighter);
+    z-index: -1;
+    border-radius: 4px;
+}
+
 .tagline {
     font-size: 1.4rem;
     color: var(--text-secondary);
@@ -217,7 +223,7 @@ ul {
     display: flex;
     gap: 1rem;
     justify-content: center;
-    animation: fadeInUp 0.8s var(--ease-smooth) 0.4s both;
+    animation: fadeInUp 0.8s ease 0.4s both;
 }
 
 .btn {
@@ -225,8 +231,8 @@ ul {
     border-radius: var(--radius);
     font-weight: 600;
     font-size: 1rem;
+    transition: all 0.3s ease;
     cursor: pointer;
-    transition: all var(--transition-normal) var(--ease-spring);
 }
 
 .btn-primary {
@@ -391,10 +397,6 @@ ul {
     color: var(--accent);
 }
 
-.about-card ul {
-    padding-left: 1.2rem;
-}
-
 .about-card li {
     position: relative;
     margin-bottom: 0.5rem;
@@ -426,20 +428,18 @@ ul {
 }
 
 .skill-category {
-    background: var(--bg-card);
-    border-radius: var(--radius-xl);
+    background: var(--white);
+    border-radius: var(--radius-lg);
     padding: 2rem;
-    box-shadow: var(--shadow-md);
-    border: 1px solid rgba(27, 67, 50, 0.08);
+    box-shadow: var(--shadow);
 }
 
 .skill-category h3 {
-    color: var(--primary-light);
+    color: var(--primary-dark);
     font-size: 1.2rem;
     margin-bottom: 1.5rem;
     padding-bottom: 0.75rem;
-    border-bottom: 2px solid var(--bg-secondary);
-    font-weight: 600;
+    border-bottom: 2px solid var(--secondary);
 }
 
 .skill-item {
@@ -450,12 +450,12 @@ ul {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 500;
-    color: var(--text-primary);
+    color: var(--text-dark);
 }
 
 .skill-bar {
     height: 10px;
-    background: var(--bg-secondary);
+    background: var(--gray-200);
     border-radius: 5px;
     overflow: hidden;
 }
@@ -464,8 +464,7 @@ ul {
     height: 100%;
     background: var(--primary-gradient);
     border-radius: 5px;
-    transition: width 1s var(--ease-out-expo);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transition: width 1s ease;
 }
 
 .skill-tags {
@@ -475,22 +474,18 @@ ul {
 }
 
 .tag {
-    background: var(--bg-secondary);
-    color: var(--primary-light);
+    background: var(--secondary);
+    color: var(--primary-dark);
     padding: 0.5rem 1rem;
     border-radius: 20px;
     font-size: 0.9rem;
     font-weight: 500;
-    transition: all var(--transition-normal) var(--ease-spring);
-    border: 1px solid transparent;
+    transition: all 0.3s ease;
 }
 
 .tag:hover {
-    background: var(--primary-gradient);
+    background: var(--primary);
     color: var(--white);
-    transform: scale(1.1);
-    box-shadow: var(--shadow-md), var(--shadow-glow);
-    border-color: var(--accent);
 }
 
 /* ========================================
@@ -505,17 +500,16 @@ ul {
 .journal-entry {
     display: flex;
     gap: 1.5rem;
-    background: var(--bg-card);
-    border-radius: var(--radius-xl);
+    background: var(--white);
+    border-radius: var(--radius-lg);
     padding: 1.5rem;
-    box-shadow: var(--shadow-md);
-    transition: all var(--transition-slow) var(--ease-spring);
-    border: 1px solid rgba(27, 67, 50, 0.08);
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
 }
 
 .journal-entry:hover {
-    transform: translateX(15px) scale(1.01);
-    box-shadow: var(--shadow-lg), var(--shadow-glow);
+    transform: translateX(10px);
+    box-shadow: var(--shadow-hover);
 }
 
 .journal-date {
@@ -526,7 +520,6 @@ ul {
     color: var(--white);
     border-radius: var(--radius);
     min-width: 80px;
-    box-shadow: var(--shadow-md);
 }
 
 .journal-date .day {
@@ -542,14 +535,13 @@ ul {
 }
 
 .journal-content h3 {
-    color: var(--text-primary);
+    color: var(--text-dark);
     font-size: 1.2rem;
     margin-bottom: 0.5rem;
-    font-weight: 600;
 }
 
 .journal-content p {
-    color: var(--text-secondary);
+    color: var(--text-light);
     line-height: 1.8;
 }
 
@@ -563,42 +555,33 @@ ul {
 }
 
 .idea-card {
-    background: var(--bg-card);
-    border-radius: var(--radius-xl);
+    background: var(--white);
+    border-radius: var(--radius-lg);
     padding: 2rem;
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow);
     text-align: center;
-    transition: all var(--transition-slow) var(--ease-spring);
+    transition: all 0.3s ease;
     position: relative;
-    border: 1px solid rgba(27, 67, 50, 0.08);
 }
 
 .idea-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: var(--shadow-xl), var(--shadow-glow);
-    border-color: var(--accent);
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
 }
 
 .idea-icon {
     font-size: 3rem;
     margin-bottom: 1rem;
-    display: inline-block;
-    transition: transform 400ms var(--ease-spring);
-}
-
-.idea-card:hover .idea-icon {
-    transform: scale(1.2) rotate(10deg);
 }
 
 .idea-card h3 {
-    color: var(--text-primary);
+    color: var(--text-dark);
     font-size: 1.2rem;
     margin-bottom: 0.75rem;
-    font-weight: 600;
 }
 
 .idea-card p {
-    color: var(--text-secondary);
+    color: var(--text-light);
     margin-bottom: 1rem;
 }
 
@@ -637,18 +620,16 @@ ul {
 .book-card {
     display: flex;
     gap: 1.5rem;
-    background: var(--bg-card);
-    border-radius: var(--radius-xl);
+    background: var(--white);
+    border-radius: var(--radius-lg);
     padding: 1.5rem;
-    box-shadow: var(--shadow-md);
-    transition: all var(--transition-slow) var(--ease-spring);
-    border: 1px solid rgba(27, 67, 50, 0.08);
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
 }
 
 .book-card:hover {
     transform: scale(1.02);
-    box-shadow: var(--shadow-xl), var(--shadow-glow);
-    border-color: var(--accent);
+    box-shadow: var(--shadow-hover);
 }
 
 .book-cover {
@@ -661,29 +642,22 @@ ul {
     align-items: center;
     justify-content: center;
     font-size: 2rem;
-    box-shadow: var(--shadow-md);
-    transition: transform 400ms var(--ease-spring);
-}
-
-.book-card:hover .book-cover {
-    transform: scale(1.1) rotate(-5deg);
 }
 
 .book-info h3 {
-    color: var(--text-primary);
+    color: var(--text-dark);
     font-size: 1.1rem;
     margin-bottom: 0.25rem;
-    font-weight: 600;
 }
 
 .book-author {
-    color: var(--text-light);
+    color: var(--text-lighter);
     font-size: 0.9rem;
     margin-bottom: 0.5rem;
 }
 
 .book-review {
-    color: var(--text-secondary);
+    color: var(--text-light);
     font-size: 0.9rem;
     margin-bottom: 0.75rem;
     line-height: 1.6;
@@ -707,20 +681,18 @@ ul {
 }
 
 .plan-period {
-    background: var(--bg-card);
-    border-radius: var(--radius-xl);
+    background: var(--white);
+    border-radius: var(--radius-lg);
     padding: 2rem;
-    box-shadow: var(--shadow-md);
-    border: 1px solid rgba(27, 67, 50, 0.08);
+    box-shadow: var(--shadow);
 }
 
 .plan-period h3 {
-    color: var(--primary-light);
+    color: var(--primary);
     font-size: 1.2rem;
     margin-bottom: 1.5rem;
     padding-bottom: 0.75rem;
-    border-bottom: 2px solid var(--bg-secondary);
-    font-weight: 600;
+    border-bottom: 2px solid var(--secondary);
 }
 
 .plan-list {
@@ -732,9 +704,8 @@ ul {
     align-items: center;
     gap: 0.75rem;
     padding: 0.75rem 0;
-    color: var(--text-primary);
-    border-bottom: 1px dashed var(--bg-secondary);
-    font-weight: 450;
+    color: var(--text-dark);
+    border-bottom: 1px dashed var(--gray-200);
 }
 
 .plan-list li:last-child {
@@ -758,21 +729,19 @@ ul {
 }
 
 .social-card {
-    background: var(--bg-card);
+    background: var(--white);
     border-radius: var(--radius);
     padding: 1.5rem;
     text-align: center;
-    box-shadow: var(--shadow-md);
-    transition: all var(--transition-slow) var(--ease-spring);
-    border: 1px solid rgba(27, 67, 50, 0.08);
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
 }
 
 .social-card:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: var(--shadow-lg), var(--shadow-glow);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
     background: var(--primary-gradient);
     color: var(--white);
-    border-color: transparent;
 }
 
 .social-card i {
@@ -780,12 +749,11 @@ ul {
     margin-bottom: 0.75rem;
     display: block;
     color: var(--primary);
-    transition: all var(--transition-slow) var(--ease-spring);
+    transition: all 0.3s ease;
 }
 
 .social-card:hover i {
     color: var(--white);
-    transform: scale(1.2) translateY(-5px);
 }
 
 .social-card span {
@@ -809,41 +777,33 @@ ul {
 }
 
 .contact-card {
-    background: var(--bg-card);
-    border-radius: var(--radius-xl);
+    background: var(--white);
+    border-radius: var(--radius-lg);
     padding: 2rem;
     text-align: center;
-    box-shadow: var(--shadow-md);
-    transition: all var(--transition-slow) var(--ease-spring);
-    border: 1px solid rgba(27, 67, 50, 0.08);
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
 }
 
 .contact-card:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: var(--shadow-lg), var(--shadow-glow);
-    border-color: var(--accent);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
 }
 
 .contact-card i {
     font-size: 2.5rem;
     color: var(--primary);
     margin-bottom: 1rem;
-    transition: transform 400ms var(--ease-spring);
-}
-
-.contact-card:hover i {
-    transform: scale(1.2);
 }
 
 .contact-card h3 {
-    color: var(--text-primary);
+    color: var(--text-dark);
     font-size: 1.1rem;
     margin-bottom: 0.5rem;
-    font-weight: 600;
 }
 
 .contact-card a {
-    color: var(--primary-light);
+    color: var(--primary);
     font-weight: 500;
 }
 
@@ -852,7 +812,7 @@ ul {
 }
 
 .contact-card span {
-    color: var(--text-secondary);
+    color: var(--text-light);
 }
 
 /* ========================================
@@ -865,20 +825,18 @@ ul {
 }
 
 .resource-category {
-    background: var(--bg-card);
-    border-radius: var(--radius-xl);
+    background: var(--white);
+    border-radius: var(--radius-lg);
     padding: 2rem;
-    box-shadow: var(--shadow-md);
-    border: 1px solid rgba(27, 67, 50, 0.08);
+    box-shadow: var(--shadow);
 }
 
 .resource-category h3 {
-    color: var(--primary-light);
+    color: var(--primary-dark);
     font-size: 1.3rem;
     margin-bottom: 1.5rem;
     padding-bottom: 0.75rem;
-    border-bottom: 2px solid var(--bg-secondary);
-    font-weight: 600;
+    border-bottom: 2px solid var(--secondary);
 }
 
 .resource-list {
@@ -892,21 +850,18 @@ ul {
     flex-direction: column;
     padding: 1rem;
     border-radius: var(--radius);
-    background: var(--bg-primary);
-    transition: all var(--transition-normal) var(--ease-smooth);
-    border: 1px solid transparent;
+    background: var(--gray-100);
+    transition: all 0.3s ease;
 }
 
 .resource-item:hover {
-    background: var(--bg-secondary);
-    transform: translateX(8px) translateY(-2px);
-    box-shadow: var(--shadow-md);
-    border-color: var(--accent);
+    background: var(--secondary);
+    transform: translateX(5px);
 }
 
 .resource-name {
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--text-dark);
     margin-bottom: 0.25rem;
 }
 
@@ -946,7 +901,7 @@ ul {
 
 .footer-links a {
     opacity: 0.8;
-    transition: opacity var(--transition-fast) var(--ease-smooth);
+    transition: opacity 0.3s ease;
 }
 
 .footer-links a:hover {
@@ -971,7 +926,7 @@ ul {
         background: var(--white);
         flex-direction: column;
         padding: 1rem;
-        box-shadow: var(--shadow-lg);
+        box-shadow: var(--shadow);
         gap: 0.5rem;
     }
 
@@ -1102,6 +1057,8 @@ ul {
 .resource-category {
     position: relative;
     overflow: hidden;
+    transition: transform 500ms, box-shadow 500ms;
+    transition-timing-function: var(--ease-spring);
     will-change: transform, box-shadow;
 }
 
@@ -1120,7 +1077,7 @@ ul {
     left: 50%;
     width: 0;
     height: 0;
-    background: radial-gradient(circle, rgba(82, 183, 136, 0.1) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(45, 138, 78, 0.1) 0%, transparent 70%);
     transition: width 500ms, height 500ms;
     transition-timing-function: var(--ease-spring);
     transform: translate(-50%, -50%);
@@ -1153,6 +1110,27 @@ ul {
 .resource-category > * {
     position: relative;
     z-index: 1;
+}
+
+/* 增强悬停效果 */
+.about-card:hover,
+.skill-category:hover,
+.idea-card:hover,
+.book-card:hover,
+.plan-period:hover,
+.resource-category:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 
+        0 20px 40px rgba(45, 138, 78, 0.2),
+        0 0 80px rgba(45, 138, 78, 0.1);
+}
+
+.social-card:hover,
+.contact-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 
+        0 15px 30px rgba(45, 138, 78, 0.2),
+        0 0 60px rgba(45, 138, 78, 0.1);
 }
 
 /* 毛玻璃过渡 */
@@ -1193,10 +1171,132 @@ ul {
     filter: blur(10px);
 }
 
+/* 技能条动画增强 */
+.skill-progress {
+    transition: width 1s var(--ease-out-expo);
+    will-change: width;
+}
+
+/* 导航栏滚动效果增强 */
+.navbar {
+    transition: background-color 300ms, box-shadow 300ms, padding 300ms;
+    transition-timing-function: var(--ease-smooth);
+}
+
+/* 按钮悬停增强 */
+.btn-primary {
+    transition: all 300ms var(--ease-spring);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 
+        0 10px 25px rgba(45, 138, 78, 0.3),
+        0 0 50px rgba(45, 138, 78, 0.15);
+}
+
+.btn-outline {
+    transition: all 300ms var(--ease-spring);
+}
+
+.btn-outline:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(45, 138, 78, 0.2);
+}
+
+/* 平滑滚动增强 */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px; /* 导航栏高度 */
+}
+
 /* 性能优化：减少重绘 */
 .hero-decoration,
 .floating-leaf {
     will-change: transform, opacity;
+}
+
+/* 标签悬停增强 */
+.tag {
+    transition: all 300ms var(--ease-spring);
+}
+
+.tag:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(45, 138, 78, 0.3);
+}
+
+/* 资源链接悬停增强 */
+.resource-item {
+    transition: all 300ms var(--ease-smooth);
+    will-change: transform, background-color;
+}
+
+.resource-item:hover {
+    transform: translateX(8px) translateY(-2px);
+    box-shadow: 0 4px 12px rgba(45, 138, 78, 0.15);
+}
+
+/* 日志条目悬停增强 */
+.journal-entry {
+    transition: all 400ms var(--ease-spring);
+}
+
+.journal-entry:hover {
+    transform: translateX(15px) scale(1.01);
+}
+
+/* 想法卡片图标动画 */
+.idea-icon {
+    transition: transform 400ms var(--ease-spring);
+    display: inline-block;
+}
+
+.idea-card:hover .idea-icon {
+    transform: scale(1.2) rotate(10deg);
+}
+
+/* 书籍封面动画 */
+.book-cover {
+    transition: transform 400ms var(--ease-spring);
+}
+
+.book-card:hover .book-cover {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+/* 社交媒体图标动画 */
+.social-card i {
+    transition: all 400ms var(--ease-spring);
+}
+
+.social-card:hover i {
+    transform: scale(1.2) translateY(-5px);
+}
+
+/* 联系卡片图标动画 */
+.contact-card i {
+    transition: transform 400ms var(--ease-spring);
+}
+
+.contact-card:hover i {
+    transform: scale(1.2);
+}
+
+/* 加载动画 */
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.loading-shimmer {
+    background: linear-gradient(90deg, var(--gray-100) 0%, var(--white) 50%, var(--gray-100) 100%);
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite;
 }
 
 /* 减少动画（无障碍） */
@@ -1214,3 +1314,4 @@ ul {
         transform: none;
     }
 }
+@end
