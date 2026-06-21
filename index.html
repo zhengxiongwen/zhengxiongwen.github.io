@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的个人网站</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-brand">🌿 我的空间</div>
+        <ul class="nav-links">
+            <li><a href="#about">关于我</a></li>
+            <li><a href="#skills">技能</a></li>
+            <li><a href="#journal">日志</a></li>
+            <li><a href="#ideas">创新想法</a></li>
+            <li><a href="#books">已读书籍</a></li>
+            <li><a href="#plan">规划安排</a></li>
+            <li><a href="#social">社交账号</a></li>
+            <li><a href="#resources">资源收集</a></li>
+            <li><a href="#contact">联系方式</a></li>
+        </ul>
+        <button class="menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- 主页横幅 -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1>你好，我是 <span class="highlight">用户名</span></h1>
+            <p class="tagline">一句简介（比如：热爱学习的学生 / 创意设计爱好者）</p>
+            <div class="hero-buttons">
+                <a href="#about" class="btn btn-primary">了解更多</a>
+                <a href="#contact" class="btn btn-outline">联系我</a>
+            </div>
+        </div>
+        <div class="hero-decoration">
+            <div class="floating-leaf">🍃</div>
+            <div class="floating-leaf">🌿</div>
+            <div class="floating-leaf">🌱</div>
+        </div>
+    </header>
+
+    <!-- 板块一：个人展示 -->
+    <main class="section-container">
+        <section class="section-divider">
+            <h2>📂 板块一：个人展示</h2>
+            <p>让更多人了解真实的我</p>
+        </section>
+
+        <!-- 关于我 -->
+        <section id="about" class="section">
+            <h2 class="section-title"><i class="fas fa-user-circle"></i> 关于我</h2>
+            <div class="about-grid">
+                <div class="about-card">
+                    <h3><i class="fas fa-heart"></i> 性格特点</h3>
+                    <ul>
+                        <li>乐观开朗，积极向上</li>
+                        <li>认真负责，注重细节</li>
+                        <li>好奇心强，热爱探索</li>
+                        <li>善于沟通，乐于分享</li>
+                    </ul>
+                </div>
+                <div class="about-card">
+                    <h3><i class="fas fa-star"></i> 优势长处</h3>
+                    <ul>
+                        <li>学习能力强，上手快</li>
+                        <li>逻辑思维清晰</li>
+                        <li>团队协作能力强</li>
+                        <li>执行力强，说到做到</li>
+                    </ul>
+                </div>
+                <div class="about-card">
+                    <h3><i class="fas fa-lightbulb"></i> 个人简介</h3>
+                    <p>在这里写一段详细的自我介绍，让访客更好地了解你。可以包括你的背景、经历、兴趣爱好、人生目标等等。这是一个展示自己的好机会！</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 技能展示 -->
+        <section id="skills" class="section">
+            <h2 class="section-title"><i class="fas fa-code"></i> 技能展示</h2>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3>💻 编程技能</h3>
+                    <div class="skill-item">
+                        <span>Python</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 70%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <span>HTML/CSS</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 60%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <span>JavaScript</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 50%"></div></div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>🎨 设计技能</h3>
+                    <div class="skill-item">
+                        <span>Photoshop</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 55%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <span>Figma</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 45%"></div></div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>📚 其他技能</h3>
+                    <div class="skill-tags">
+                        <span class="tag">团队协作</span>
+                        <span class="tag">项目管理</span>
+                        <span class="tag">数据分析</span>
+                        <span class="tag">文档写作</span>
+                        <span class="tag">视频剪辑</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 个人日志 -->
+        <section id="journal" class="section">
+            <h2 class="section-title"><i class="fas fa-book-open"></i> 个人日志</h2>
+            <div class="journal-container">
+                <article class="journal-entry">
+                    <div class="journal-date">
+                        <span class="day">21</span>
+                        <span class="month">2026.06</span>
+                    </div>
+                    <div class="journal-content">
+                        <h3>今天创建了个人网站</h3>
+                        <p>终于拥有了自己的个人网站！这是一个新的开始，我会在这里记录我的学习、生活和成长。期待未来的每一天！</p>
+                    </div>
+                </article>
+                <article class="journal-entry">
+                    <div class="journal-date">
+                        <span class="day">15</span>
+                        <span class="month">2026.06</span>
+                    </div>
+                    <div class="journal-content">
+                        <h3>日志标题示例</h3>
+                        <p>这里可以写你的日志内容，记录每天发生的事情、你的想法、学到的东西等等...</p>
+                    </div>
+                </article>
+                <article class="journal-entry">
+                    <div class="journal-date">
+                        <span class="day">01</span>
+                        <span class="month">2026.06</span>
+                    </div>
+                    <div class="journal-content">
+                        <h3>另一个日志示例</h3>
+                        <p>继续记录你的故事，让时间留下痕迹。每一篇日志都是成长的见证。</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- 创新想法 -->
+        <section id="ideas" class="section">
+            <h2 class="section-title"><i class="fas fa-lightbulb"></i> 创新想法</h2>
+            <div class="ideas-container">
+                <div class="idea-card">
+                    <div class="idea-icon">💡</div>
+                    <h3>想法一</h3>
+                    <p>在这里记录你的创新想法、创意点子。任何天马行空的想法都可以！</p>
+                    <span class="idea-status status-thinking">思考中</span>
+                </div>
+                <div class="idea-card">
+                    <div class="idea-icon">🚀</div>
+                    <h3>想法二</h3>
+                    <p>另一个创新想法的描述。可以是一个项目、一个产品、一个解决方案...</p>
+                    <span class="idea-status status-progress">进行中</span>
+                </div>
+                <div class="idea-card">
+                    <div class="idea-icon">✨</div>
+                    <h3>想法三</h3>
+                    <p>还可以记录你的梦想和愿景，让访客看到你的雄心壮志！</p>
+                    <span class="idea-status status-dream">梦想</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 已读书籍 -->
+        <section id="books" class="section">
+            <h2 class="section-title"><i class="fas fa-book"></i> 已读书籍</h2>
+            <div class="books-container">
+                <div class="book-card">
+                    <div class="book-cover">📖</div>
+                    <div class="book-info">
+                        <h3>《书名一》</h3>
+                        <p class="book-author">作者名</p>
+                        <p class="book-review">这本书给了我很多启发，特别是关于...的部分。</p>
+                        <div class="book-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-cover">📖</div>
+                    <div class="book-info">
+                        <h3>《书名二》</h3>
+                        <p class="book-author">作者名</p>
+                        <p class="book-review">简要描述这本书的内容和你的收获。</p>
+                        <div class="book-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-cover">📖</div>
+                    <div class="book-info">
+                        <h3>《书名三》</h3>
+                        <p class="book-author">作者名</p>
+                        <p class="book-review">继续添加你读过的书籍，展示你的阅读量！</p>
+                        <div class="book-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 规划安排 -->
+        <section id="plan" class="section">
+            <h2 class="section-title"><i class="fas fa-calendar-alt"></i> 规划安排</h2>
+            <div class="plan-container">
+                <div class="plan-period">
+                    <h3>🎯 短期目标（1-3个月）</h3>
+                    <ul class="plan-list">
+                        <li><input type="checkbox" checked> 完成个人网站搭建</li>
+                        <li><input type="checkbox"> 学习一门新技术</li>
+                        <li><input type="checkbox"> 完成 X 项目</li>
+                        <li><input type="checkbox"> 读完 Y 本书</li>
+                    </ul>
+                </div>
+                <div class="plan-period">
+                    <h3>🚀 中期目标（3-12个月）</h3>
+                    <ul class="plan-list">
+                        <li><input type="checkbox"> 考取 Z 证书</li>
+                        <li><input type="checkbox"> 参加某个比赛/活动</li>
+                        <li><input type="checkbox"> 完成某个作品集</li>
+                    </ul>
+                </div>
+                <div class="plan-period">
+                    <h3>🌟 长期愿景（1年以上）</h3>
+                    <ul class="plan-list">
+                        <li><input type="checkbox"> 实现 X 梦想</li>
+                        <li><input type="checkbox"> 达成 Y 成就</li>
+                        <li><input type="checkbox"> 成为 Z 领域的专家</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 社交媒体 -->
+        <section id="social" class="section">
+            <h2 class="section-title"><i class="fas fa-share-alt"></i> 社交媒体</h2>
+            <div class="social-container">
+                <a href="#" class="social-card" target="_blank">
+                    <i class="fab fa-github"></i>
+                    <span>GitHub</span>
+                    <small>@zhengxiongwen</small>
+                </a>
+                <a href="#" class="social-card" target="_blank">
+                    <i class="fab fa-bilibili"></i>
+                    <span>B站</span>
+                    <small>你的B站ID</small>
+                </a>
+                <a href="#" class="social-card" target="_blank">
+                    <i class="fab fa-weixin"></i>
+                    <span>微信</span>
+                    <small>你的微信号</small>
+                </a>
+                <a href="#" class="social-card" target="_blank">
+                    <i class="fab fa-qq"></i>
+                    <span>QQ</span>
+                    <small>你的QQ号</small>
+                </a>
+                <a href="#" class="social-card" target="_blank">
+                    <i class="fab fa-weibo"></i>
+                    <span>微博</span>
+                    <small>你的微博ID</small>
+                </a>
+                <a href="#" class="social-card" target="_blank">
+                    <i class="fas fa-book"></i>
+                    <span>小红书</span>
+                    <small>你的小红书ID</small>
+                </a>
+                <a href="#" class="social-card" target="_blank">
+                    <i class="fab fa-tiktok"></i>
+                    <span>抖音</span>
+                    <small>你的抖音ID</small>
+                </a>
+                <a href="#" class="social-card" target="_blank">
+                    <i class="fas fa-external-link-alt"></i>
+                    <span>其他</span>
+                    <small>添加更多</small>
+                </a>
+            </div>
+        </section>
+
+        <!-- 联系方式 -->
+        <section id="contact" class="section">
+            <h2 class="section-title"><i class="fas fa-envelope"></i> 联系方式</h2>
+            <div class="contact-container">
+                <div class="contact-card">
+                    <i class="fas fa-envelope"></i>
+                    <h3>邮箱</h3>
+                    <a href="mailto:your-email@example.com">your-email@example.com</a>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-phone"></i>
+                    <h3>电话</h3>
+                    <span>可选，填你的电话</span>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>位置</h3>
+                    <span>你的城市</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 板块二：资源收集 -->
+        <section class="section-divider">
+            <h2>🔗 板块二：资源收集</h2>
+            <p>精选优质网站与资源</p>
+        </section>
+
+        <!-- 资源收集 -->
+        <section id="resources" class="section">
+            <h2 class="section-title"><i class="fas fa-folder-open"></i> 资源收集</h2>
+            <div class="resources-container">
+                <div class="resource-category">
+                    <h3>🎨 设计审美</h3>
+                    <div class="resource-list">
+                        <a href="https://dribbble.com" target="_blank" class="resource-item">
+                            <span class="resource-name">Dribbble</span>
+                            <span class="resource-desc">设计师作品展示平台</span>
+                        </a>
+                        <a href="https://www.behance.net" target="_blank" class="resource-item">
+                            <span class="resource-name">Behance</span>
+                            <span class="resource-desc">Adobe创意作品展示</span>
+                        </a>
+                        <a href="https://www.pinterest.com" target="_blank" class="resource-item">
+                            <span class="resource-name">Pinterest</span>
+                            <span class="resource-desc">图片灵感收集</span>
+                        </a>
+                        <a href="https://huaban.com" target="_blank" class="resource-item">
+                            <span class="resource-name">花瓣网</span>
+                            <span class="resource-desc">国内设计灵感采集</span>
+                        </a>
+                        <a href="https://www.zcool.com.cn" target="_blank" class="resource-item">
+                            <span class="resource-name">站酷</span>
+                            <span class="resource-desc">中国设计师社区</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="resource-category">
+                    <h3>🖼️ 图片素材</h3>
+                    <div class="resource-list">
+                        <a href="https://unsplash.com" target="_blank" class="resource-item">
+                            <span class="resource-name">Unsplash</span>
+                            <span class="resource-desc">高质量免费图片</span>
+                        </a>
+                        <a href="https://www.pexels.com" target="_blank" class="resource-item">
+                            <span class="resource-name">Pexels</span>
+                            <span class="resource-desc">免费图片和视频</span>
+                        </a>
+                        <a href="https://pixabay.com" target="_blank" class="resource-item">
+                            <span class="resource-name">Pixabay</span>
+                            <span class="resource-desc">免版税图片库</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="resource-category">
+                    <h3>💻 开发资源</h3>
+                    <div class="resource-list">
+                        <a href="https://github.com" target="_blank" class="resource-item">
+                            <span class="resource-name">GitHub</span>
+                            <span class="resource-desc">代码托管平台</span>
+                        </a>
+                        <a href="https://stackoverflow.com" target="_blank" class="resource-item">
+                            <span class="resource-name">Stack Overflow</span>
+                            <span class="resource-desc">程序员问答社区</span>
+                        </a>
+                        <a href="https://codepen.io" target="_blank" class="resource-item">
+                            <span class="resource-name">CodePen</span>
+                            <span class="resource-desc">前端代码演示</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="resource-category">
+                    <h3>📚 学习资源</h3>
+                    <div class="resource-list">
+                        <a href="https://www.coursera.org" target="_blank" class="resource-item">
+                            <span class="resource-name">Coursera</span>
+                            <span class="resource-desc">在线课程平台</span>
+                        </a>
+                        <a href="https://www.bilibili.com" target="_blank" class="resource-item">
+                            <span class="resource-name">B站</span>
+                            <span class="resource-desc">视频学习资源</span>
+                        </a>
+                        <a href="https://www.runoob.com" target="_blank" class="resource-item">
+                            <span class="resource-name">菜鸟教程</span>
+                            <span class="resource-desc">编程入门教程</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="resource-category">
+                    <h3>🛠️ 效率工具</h3>
+                    <div class="resource-list">
+                        <a href="https://www.notion.so" target="_blank" class="resource-item">
+                            <span class="resource-name">Notion</span>
+                            <span class="resource-desc">笔记与协作工具</span>
+                        </a>
+                        <a href="https://www.canva.com" target="_blank" class="resource-item">
+                            <span class="resource-name">Canva</span>
+                            <span class="resource-desc">在线设计工具</span>
+                        </a>
+                        <a href="https://www.figma.com" target="_blank" class="resource-item">
+                            <span class="resource-name">Figma</span>
+                            <span class="resource-desc">UI设计协作</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>© 2026 我的空间 | 用心记录每一刻</p>
+            <div class="footer-links">
+                <a href="#about">关于我</a>
+                <a href="#contact">联系我</a>
+                <a href="https://github.com/zhengxiongwen" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 移动端菜单切换
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // 关闭移动端菜单
+                    document.querySelector('.nav-links').classList.remove('active');
+                }
+            });
+        });
+
+        // 滚动时导航栏效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
