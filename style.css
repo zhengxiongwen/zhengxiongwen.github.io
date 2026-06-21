@@ -1,6 +1,6 @@
 /* ========================================
    深色绿色主题 - 个人网站样式
-   设计理念：层次感、深度感、高级感
+   设计理念：深绿背景 + 毛玻璃卡片 + 高级感
    ======================================== */
 
 /* ========================================
@@ -14,29 +14,35 @@
     --primary-dark: #081c15;      /* 极深绿色（近黑） */
     --primary-gradient: linear-gradient(135deg, #1b4332 0%, #2d6a4f 50%, #40916c 100%);
     
-    /* 辅助色：浅绿色（用于强调） */
+    /* 辅助色：亮绿色（用于强调） */
     --accent: #52b788;           /* 亮绿色（交互元素） */
     --accent-light: #74c69d;     /* 更亮绿色（悬停） */
     --accent-glow: rgba(82, 183, 136, 0.3); /* 光晕色 */
     
-    /* 背景层次 */
-    --bg-primary: #f8fdf9;       /* 主背景（极浅绿白） */
-    --bg-secondary: #e6f2ea;     /* 次背景（浅绿） */
-    --bg-tertiary: #d1ecd9;     /* 第三背景（稍深绿） */
-    --bg-card: #ffffff;           /* 卡片背景（纯白） */
+    /* 背景层次 - 深色系 */
+    --bg-primary: #0f2018;       /* 主背景（深绿黑） */
+    --bg-secondary: #1a3328;     /* 次背景（深绿） */
+    --bg-tertiary: #254d3a;     /* 第三背景（中深绿） */
+    --bg-card: rgba(255, 255, 255, 0.05); /* 卡片背景（半透明） */
+    --bg-card-solid: #1a3328;    /* 卡片背景（实色） */
     
-    /* 文字颜色 */
-    --text-primary: #081c15;      /* 主文字（极深绿） */
-    --text-secondary: #2d6a4f;   /* 次文字（深绿） */
-    --text-tertiary: #52b788;    /* 第三文字（中绿） */
-    --text-light: #6c757d;       /* 浅色文字（灰绿） */
+    /* 文字颜色 - 浅色系 */
+    --text-primary: #e8f5e9;     /* 主文字（浅绿白） */
+    --text-secondary: #c8e6c9;   /* 次文字（浅绿） */
+    --text-tertiary: #a5d6a7;   /* 第三文字（中浅绿） */
+    --text-light: #81c784;       /* 浅色文字（亮绿） */
     
-    /* 阴影层次（多层阴影营造深度） */
-    --shadow-sm: 0 2px 8px rgba(27, 67, 50, 0.08);
-    --shadow-md: 0 4px 16px rgba(27, 67, 50, 0.12);
-    --shadow-lg: 0 8px 32px rgba(27, 67, 50, 0.16);
-    --shadow-xl: 0 16px 48px rgba(27, 67, 50, 0.20);
-    --shadow-glow: 0 0 40px rgba(82, 183, 136, 0.2);
+    /* 毛玻璃效果 */
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+    --glass-blur: blur(20px);
+    
+    /* 阴影层次 - 深色系 */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+    --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.6);
+    --shadow-glow: 0 0 40px rgba(82, 183, 136, 0.15);
     
     /* 圆角 */
     --radius: 12px;
@@ -73,7 +79,7 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 80px; /* 导航栏高度 */
+    scroll-padding-top: 80px;
 }
 
 body {
@@ -84,6 +90,7 @@ body {
     background-attachment: fixed;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
 }
 
 a {
@@ -97,7 +104,7 @@ ul {
 }
 
 /* ========================================
-   导航栏
+   导航栏 - 毛玻璃效果
    ======================================== */
 .navbar {
     position: fixed;
@@ -105,20 +112,21 @@ ul {
     left: 0;
     right: 0;
     z-index: 1000;
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(20px);
+    background: rgba(15, 32, 24, 0.9);
+    backdrop-filter: var(--glass-blur);
     padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     transition: all var(--transition-normal) var(--ease-smooth);
     box-shadow: var(--shadow-sm);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .nav-brand {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--primary);
+    color: var(--accent);
     letter-spacing: -0.5px;
 }
 
@@ -150,8 +158,8 @@ ul {
 }
 
 .nav-links a:hover {
-    background: var(--bg-secondary);
-    color: var(--primary-light);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--accent);
 }
 
 .nav-links a:hover::after {
@@ -163,7 +171,7 @@ ul {
     background: none;
     border: none;
     font-size: 1.5rem;
-    color: var(--primary);
+    color: var(--accent);
     cursor: pointer;
 }
 
@@ -179,7 +187,7 @@ ul {
     padding: 6rem 2rem 4rem;
     position: relative;
     overflow: hidden;
-    background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 30%, var(--bg-tertiary) 70%, var(--bg-secondary) 100%);
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-tertiary) 100%);
 }
 
 .hero-content {
@@ -197,9 +205,9 @@ ul {
 }
 
 .highlight {
-    color: var(--primary-light);
+    color: var(--accent);
     position: relative;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -243,8 +251,8 @@ ul {
 
 .btn-outline {
     background: transparent;
-    color: var(--primary-light);
-    border: 2px solid var(--primary-light);
+    color: var(--accent);
+    border: 2px solid var(--accent);
     box-shadow: var(--shadow-sm);
 }
 
@@ -267,7 +275,7 @@ ul {
 .floating-leaf {
     position: absolute;
     font-size: 2rem;
-    opacity: 0.3;
+    opacity: 0.2;
     animation: float 6s ease-in-out infinite;
 }
 
@@ -324,7 +332,7 @@ ul {
 .section-divider {
     text-align: center;
     padding: 3rem 0;
-    border-top: 2px dashed var(--bg-tertiary);
+    border-top: 2px dashed rgba(255, 255, 255, 0.1);
     margin-top: 2rem;
     position: relative;
 }
@@ -342,7 +350,7 @@ ul {
 
 .section-divider h2 {
     font-size: 2.2rem;
-    color: var(--primary-light);
+    color: var(--accent);
     margin-bottom: 0.5rem;
     font-weight: 700;
 }
@@ -354,7 +362,7 @@ ul {
 }
 
 /* ========================================
-   关于我
+   关于我 - 毛玻璃卡片
    ======================================== */
 .about-grid {
     display: grid;
@@ -363,22 +371,23 @@ ul {
 }
 
 .about-card {
-    background: var(--bg-card);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
     border-radius: var(--radius-xl);
     padding: 2rem;
     box-shadow: var(--shadow-md);
     transition: all var(--transition-slow) var(--ease-spring);
-    border: 1px solid rgba(27, 67, 50, 0.08);
+    border: var(--glass-border);
 }
 
 .about-card:hover {
     transform: translateY(-8px);
     box-shadow: var(--shadow-xl), var(--shadow-glow);
-    border-color: var(--accent);
+    border-color: rgba(82, 183, 136, 0.3);
 }
 
 .about-card h3 {
-    color: var(--primary-light);
+    color: var(--accent);
     font-size: 1.3rem;
     margin-bottom: 1rem;
     display: flex;
@@ -388,7 +397,7 @@ ul {
 }
 
 .about-card h3 i {
-    color: var(--accent);
+    color: var(--accent-light);
 }
 
 .about-card ul {
@@ -426,19 +435,20 @@ ul {
 }
 
 .skill-category {
-    background: var(--bg-card);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
     border-radius: var(--radius-xl);
     padding: 2rem;
     box-shadow: var(--shadow-md);
-    border: 1px solid rgba(27, 67, 50, 0.08);
+    border: var(--glass-border);
 }
 
 .skill-category h3 {
-    color: var(--primary-light);
+    color: var(--accent);
     font-size: 1.2rem;
     margin-bottom: 1.5rem;
     padding-bottom: 0.75rem;
-    border-bottom: 2px solid var(--bg-secondary);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
     font-weight: 600;
 }
 
@@ -455,7 +465,7 @@ ul {
 
 .skill-bar {
     height: 10px;
-    background: var(--bg-secondary);
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 5px;
     overflow: hidden;
 }
@@ -475,8 +485,8 @@ ul {
 }
 
 .tag {
-    background: var(--bg-secondary);
-    color: var(--primary-light);
+    background: rgba(82, 183, 136, 0.15);
+    color: var(--accent);
     padding: 0.5rem 1rem;
     border-radius: 20px;
     font-size: 0.9rem;
@@ -505,12 +515,13 @@ ul {
 .journal-entry {
     display: flex;
     gap: 1.5rem;
-    background: var(--bg-card);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
     border-radius: var(--radius-xl);
     padding: 1.5rem;
     box-shadow: var(--shadow-md);
     transition: all var(--transition-slow) var(--ease-spring);
-    border: 1px solid rgba(27, 67, 50, 0.08);
+    border: var(--glass-border);
 }
 
 .journal-entry:hover {
@@ -563,20 +574,21 @@ ul {
 }
 
 .idea-card {
-    background: var(--bg-card);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
     border-radius: var(--radius-xl);
     padding: 2rem;
     box-shadow: var(--shadow-md);
     text-align: center;
     transition: all var(--transition-slow) var(--ease-spring);
     position: relative;
-    border: 1px solid rgba(27, 67, 50, 0.08);
+    border: var(--glass-border);
 }
 
 .idea-card:hover {
     transform: translateY(-8px) scale(1.02);
     box-shadow: var(--shadow-xl), var(--shadow-glow);
-    border-color: var(--accent);
+    border-color: rgba(82, 183, 136, 0.3);
 }
 
 .idea-icon {
@@ -611,18 +623,18 @@ ul {
 }
 
 .status-thinking {
-    background: #fff3e0;
-    color: #ef6c00;
+    background: rgba(239, 108, 0, 0.2);
+    color: #ffb74d;
 }
 
 .status-progress {
-    background: #e3f2fd;
-    color: #1976d2;
+    background: rgba(25, 118, 210, 0.2);
+    color: #64b5f6;
 }
 
 .status-dream {
-    background: #fce4ec;
-    color: #c2185b;
+    background: rgba(194, 24, 91, 0.2);
+    color: #f06292;
 }
 
 /* ========================================
@@ -637,18 +649,19 @@ ul {
 .book-card {
     display: flex;
     gap: 1.5rem;
-    background: var(--bg-card);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
     border-radius: var(--radius-xl);
     padding: 1.5rem;
     box-shadow: var(--shadow-md);
     transition: all var(--transition-slow) var(--ease-spring);
-    border: 1px solid rgba(27, 67, 50, 0.08);
+    border: var(--glass-border);
 }
 
 .book-card:hover {
     transform: scale(1.02);
     box-shadow: var(--shadow-xl), var(--shadow-glow);
-    border-color: var(--accent);
+    border-color: rgba(82, 183, 136, 0.3);
 }
 
 .book-cover {
@@ -707,19 +720,20 @@ ul {
 }
 
 .plan-period {
-    background: var(--bg-card);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
     border-radius: var(--radius-xl);
     padding: 2rem;
     box-shadow: var(--shadow-md);
-    border: 1px solid rgba(27, 67, 50, 0.08);
+    border: var(--glass-border);
 }
 
 .plan-period h3 {
-    color: var(--primary-light);
+    color: var(--accent);
     font-size: 1.2rem;
     margin-bottom: 1.5rem;
     padding-bottom: 0.75rem;
-    border-bottom: 2px solid var(--bg-secondary);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
     font-weight: 600;
 }
 
@@ -733,7 +747,7 @@ ul {
     gap: 0.75rem;
     padding: 0.75rem 0;
     color: var(--text-primary);
-    border-bottom: 1px dashed var(--bg-secondary);
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
     font-weight: 450;
 }
 
@@ -744,7 +758,7 @@ ul {
 .plan-list input[type="checkbox"] {
     width: 20px;
     height: 20px;
-    accent-color: var(--primary);
+    accent-color: var(--accent);
     cursor: pointer;
 }
 
@@ -758,13 +772,14 @@ ul {
 }
 
 .social-card {
-    background: var(--bg-card);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
     border-radius: var(--radius);
     padding: 1.5rem;
     text-align: center;
     box-shadow: var(--shadow-md);
     transition: all var(--transition-slow) var(--ease-spring);
-    border: 1px solid rgba(27, 67, 50, 0.08);
+    border: var(--glass-border);
 }
 
 .social-card:hover {
@@ -779,7 +794,7 @@ ul {
     font-size: 2.5rem;
     margin-bottom: 0.75rem;
     display: block;
-    color: var(--primary);
+    color: var(--accent);
     transition: all var(--transition-slow) var(--ease-spring);
 }
 
@@ -809,24 +824,25 @@ ul {
 }
 
 .contact-card {
-    background: var(--bg-card);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
     border-radius: var(--radius-xl);
     padding: 2rem;
     text-align: center;
     box-shadow: var(--shadow-md);
     transition: all var(--transition-slow) var(--ease-spring);
-    border: 1px solid rgba(27, 67, 50, 0.08);
+    border: var(--glass-border);
 }
 
 .contact-card:hover {
     transform: translateY(-5px) scale(1.02);
     box-shadow: var(--shadow-lg), var(--shadow-glow);
-    border-color: var(--accent);
+    border-color: rgba(82, 183, 136, 0.3);
 }
 
 .contact-card i {
     font-size: 2.5rem;
-    color: var(--primary);
+    color: var(--accent);
     margin-bottom: 1rem;
     transition: transform 400ms var(--ease-spring);
 }
@@ -843,7 +859,7 @@ ul {
 }
 
 .contact-card a {
-    color: var(--primary-light);
+    color: var(--accent);
     font-weight: 500;
 }
 
@@ -865,19 +881,20 @@ ul {
 }
 
 .resource-category {
-    background: var(--bg-card);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
     border-radius: var(--radius-xl);
     padding: 2rem;
     box-shadow: var(--shadow-md);
-    border: 1px solid rgba(27, 67, 50, 0.08);
+    border: var(--glass-border);
 }
 
 .resource-category h3 {
-    color: var(--primary-light);
+    color: var(--accent);
     font-size: 1.3rem;
     margin-bottom: 1.5rem;
     padding-bottom: 0.75rem;
-    border-bottom: 2px solid var(--bg-secondary);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
     font-weight: 600;
 }
 
@@ -892,13 +909,13 @@ ul {
     flex-direction: column;
     padding: 1rem;
     border-radius: var(--radius);
-    background: var(--bg-primary);
+    background: rgba(255, 255, 255, 0.03);
     transition: all var(--transition-normal) var(--ease-smooth);
     border: 1px solid transparent;
 }
 
 .resource-item:hover {
-    background: var(--bg-secondary);
+    background: rgba(82, 183, 136, 0.1);
     transform: translateX(8px) translateY(-2px);
     box-shadow: var(--shadow-md);
     border-color: var(--accent);
@@ -919,10 +936,11 @@ ul {
    页脚
    ======================================== */
 .footer {
-    background: var(--primary-dark);
-    color: var(--white);
+    background: var(--bg-primary);
+    color: var(--text-secondary);
     padding: 2rem;
     margin-top: 4rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .footer-content {
@@ -968,7 +986,8 @@ ul {
         top: 100%;
         left: 0;
         right: 0;
-        background: var(--white);
+        background: rgba(15, 32, 24, 0.95);
+        backdrop-filter: var(--glass-blur);
         flex-direction: column;
         padding: 1rem;
         box-shadow: var(--shadow-lg);
@@ -1027,6 +1046,11 @@ ul {
     .section {
         page-break-inside: avoid;
     }
+    
+    body {
+        background: white;
+        color: black;
+    }
 }
 
 /* ========================================
@@ -1043,7 +1067,7 @@ ul {
 .ripple {
     position: absolute;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(82, 183, 136, 0.4);
     transform: scale(0);
     animation: ripple-animation 600ms var(--ease-smooth) forwards;
     pointer-events: none;
@@ -1163,7 +1187,7 @@ ul {
     width: 100%;
     height: 100%;
     backdrop-filter: blur(0px);
-    background: rgba(255, 255, 255, 0);
+    background: rgba(0, 0, 0, 0);
     transition: backdrop-filter 400ms, background 400ms;
     transition-timing-function: var(--ease-smooth);
     pointer-events: none;
@@ -1172,7 +1196,7 @@ ul {
 
 .glass-overlay.active {
     backdrop-filter: blur(20px);
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(0, 0, 0, 0.4);
 }
 
 /* 页面内容过渡 */
