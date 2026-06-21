@@ -127,29 +127,82 @@
         <!-- 个人日志 -->
         <section id="journal" class="section">
             <h2 class="section-title"><i class="fas fa-book-open"></i> 个人日志</h2>
-            <div class="journal-container">
-                <article class="journal-entry">
-                    <div class="journal-date">
-                        <span class="day">21</span>
-                        <span class="month">2026.06</span>
-                    </div>
-                    <div class="journal-content">
-                        <h3>今天创建了个人网站！</h3>
-                        <p>终于拥有了自己的个人网站！这是一个新的开始。高中刚毕业，我希望通过这个平台记录我的成长、分享我的想法、展示我的作品。期待未来的每一天，期待成为更好的自己！</p>
-                    </div>
-                </article>
-                <article class="journal-entry">
-                    <div class="journal-date">
-                        <span class="day">15</span>
-                        <span class="month">2026.06</span>
-                    </div>
-                    <div class="journal-content">
-                        <h3>暑假开始，制定学习计划</h3>
-                        <p>高中毕业后的第一个暑假，我决定利用这段时间好好提升自己。主要目标是练习视频剪辑，希望能在开学前掌握这项技能。加油！</p>
-                    </div>
-                </article>
+            <div class="journal-toolbar">
+                <button class="btn btn-primary journal-write-btn" onclick="openJournalEditor()">
+                    <i class="fas fa-pen"></i> 写日志
+                </button>
+            </div>
+            <div class="journal-container" id="journalList">
+                <!-- 日志由 JavaScript 动态加载 -->
             </div>
         </section>
+
+        <!-- 日志编辑器模态框 -->
+        <div class="modal-overlay" id="journalModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalTitle">📝 写日志</h3>
+                    <button class="modal-close" onclick="closeJournalEditor()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="journalTitle">标题</label>
+                        <input type="text" id="journalTitle" placeholder="给这篇日志取个标题..." maxlength="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="journalDate">日期</label>
+                        <input type="date" id="journalDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="journalContent">内容</label>
+                        <textarea id="journalContent" placeholder="写下你的想法..." rows="8"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="journalMood">心情</label>
+                        <div class="mood-selector">
+                            <span class="mood-option" data-mood="😊" onclick="selectMood(this)">😊</span>
+                            <span class="mood-option" data-mood="🤔" onclick="selectMood(this)">🤔</span>
+                            <span class="mood-option" data-mood="💪" onclick="selectMood(this)">💪</span>
+                            <span class="mood-option" data-mood="🎯" onclick="selectMood(this)">🎯</span>
+                            <span class="mood-option" data-mood="🌟" onclick="selectMood(this)">🌟</span>
+                            <span class="mood-option" data-mood="😴" onclick="selectMood(this)">😴</span>
+                            <span class="mood-option" data-mood="🔥" onclick="selectMood(this)">🔥</span>
+                            <span class="mood-option" data-mood="❤️" onclick="selectMood(this)">❤️</span>
+                        </div>
+                        <input type="hidden" id="journalMood" value="">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline" onclick="closeJournalEditor()">取消</button>
+                    <button class="btn btn-primary" onclick="saveJournal()">
+                        <i class="fas fa-save"></i> 保存
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 日志详情模态框 -->
+        <div class="modal-overlay" id="journalDetailModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="detailTitle">📖 日志详情</h3>
+                    <button class="modal-close" onclick="closeJournalDetail()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="detail-meta" id="detailMeta"></div>
+                    <div class="detail-content" id="detailContent"></div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline" onclick="closeJournalDetail()">关闭</button>
+                    <button class="btn btn-primary" id="detailEditBtn" onclick="editJournalFromDetail()">
+                        <i class="fas fa-edit"></i> 编辑
+                    </button>
+                    <button class="btn btn-danger" id="detailDeleteBtn" onclick="deleteJournalFromDetail()">
+                        <i class="fas fa-trash"></i> 删除
+                    </button>
+                </div>
+            </div>
+        </div>
 
         <!-- 创新想法 -->
         <section id="ideas" class="section">
@@ -476,14 +529,15 @@
         window.addEventListener('scroll', function() {
             const navbar = document.querySelector('.navbar');
             if (window.scrollY > 50) {
-                navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
-                navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+                navbar.style.backgroundColor = 'rgba(15, 32, 24, 0.98)';
+                navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.3)';
             } else {
-                navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.backgroundColor = 'rgba(15, 32, 24, 0.9)';
                 navbar.style.boxShadow = 'none';
             }
         });
     </script>
     <script src="script.js"></script>
+    <script src="journal.js"></script>
 </body>
 </html>
