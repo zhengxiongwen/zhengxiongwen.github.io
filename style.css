@@ -21,6 +21,12 @@
     --shadow-hover: 0 8px 30px rgba(45, 138, 78, 0.25);
     --radius: 12px;
     --radius-lg: 20px;
+    
+    /* 高级感缓动函数 */
+    --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 /* 基础样式 */
@@ -894,3 +900,335 @@ ul {
         page-break-inside: avoid;
     }
 }
+
+/* ========================================
+   高级感交互效果
+   ======================================== */
+
+/* 涟漪效果容器 */
+.ripple-container {
+    position: relative;
+    overflow: hidden;
+}
+
+/* 涟漪波 */
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(0);
+    animation: ripple-animation 600ms var(--ease-smooth) forwards;
+    pointer-events: none;
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* 按压 3D 效果 */
+.btn:active, .card:active, .social-card:active {
+    transform: scale(0.97) translateY(2px);
+    transition: transform 80ms var(--ease-smooth);
+}
+
+/* 滚动触发动画 */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 500ms, transform 500ms;
+    transition-timing-function: var(--ease-smooth);
+    will-change: opacity, transform;
+}
+
+.scroll-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 错落延迟 */
+.scroll-reveal:nth-child(1) { transition-delay: 0ms; }
+.scroll-reveal:nth-child(2) { transition-delay: 80ms; }
+.scroll-reveal:nth-child(3) { transition-delay: 160ms; }
+.scroll-reveal:nth-child(4) { transition-delay: 240ms; }
+.scroll-reveal:nth-child(5) { transition-delay: 320ms; }
+.scroll-reveal:nth-child(6) { transition-delay: 400ms; }
+
+/* 视差层 */
+.parallax-layer {
+    will-change: transform;
+    transition: transform 100ms ease-out;
+}
+
+/* 卡片悬停光晕效果 */
+.about-card,
+.skill-category,
+.journal-entry,
+.idea-card,
+.book-card,
+.plan-period,
+.social-card,
+.contact-card,
+.resource-category {
+    position: relative;
+    overflow: hidden;
+    transition: transform 500ms, box-shadow 500ms;
+    transition-timing-function: var(--ease-spring);
+    will-change: transform, box-shadow;
+}
+
+/* 光晕扩散 */
+.about-card::before,
+.skill-category::before,
+.idea-card::before,
+.book-card::before,
+.plan-period::before,
+.social-card::before,
+.contact-card::before,
+.resource-category::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(45, 138, 78, 0.1) 0%, transparent 70%);
+    transition: width 500ms, height 500ms;
+    transition-timing-function: var(--ease-spring);
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.about-card:hover::before,
+.skill-category:hover::before,
+.idea-card:hover::before,
+.book-card:hover::before,
+.plan-period:hover::before,
+.social-card:hover::before,
+.contact-card:hover::before,
+.resource-category:hover::before {
+    width: 150%;
+    height: 150%;
+}
+
+/* 卡片内容保持在光晕上方 */
+.about-card > *,
+.skill-category > *,
+.journal-entry > *,
+.idea-card > *,
+.book-card > *,
+.plan-period > *,
+.social-card > *,
+.contact-card > *,
+.resource-category > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* 增强悬停效果 */
+.about-card:hover,
+.skill-category:hover,
+.idea-card:hover,
+.book-card:hover,
+.plan-period:hover,
+.resource-category:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 
+        0 20px 40px rgba(45, 138, 78, 0.2),
+        0 0 80px rgba(45, 138, 78, 0.1);
+}
+
+.social-card:hover,
+.contact-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 
+        0 15px 30px rgba(45, 138, 78, 0.2),
+        0 0 60px rgba(45, 138, 78, 0.1);
+}
+
+/* 毛玻璃过渡 */
+.glass-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(0px);
+    background: rgba(255, 255, 255, 0);
+    transition: backdrop-filter 400ms, background 400ms;
+    transition-timing-function: var(--ease-smooth);
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.glass-overlay.active {
+    backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* 页面内容过渡 */
+.page-content {
+    transition: opacity 300ms, transform 300ms, filter 300ms;
+    transition-timing-function: var(--ease-smooth);
+}
+
+.page-content.page-exit {
+    opacity: 0;
+    transform: scale(0.95);
+    filter: blur(10px);
+}
+
+.page-content.page-enter {
+    opacity: 0;
+    transform: scale(1.05);
+    filter: blur(10px);
+}
+
+/* 技能条动画增强 */
+.skill-progress {
+    transition: width 1s var(--ease-out-expo);
+    will-change: width;
+}
+
+/* 导航栏滚动效果增强 */
+.navbar {
+    transition: background-color 300ms, box-shadow 300ms, padding 300ms;
+    transition-timing-function: var(--ease-smooth);
+}
+
+/* 按钮悬停增强 */
+.btn-primary {
+    transition: all 300ms var(--ease-spring);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 
+        0 10px 25px rgba(45, 138, 78, 0.3),
+        0 0 50px rgba(45, 138, 78, 0.15);
+}
+
+.btn-outline {
+    transition: all 300ms var(--ease-spring);
+}
+
+.btn-outline:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(45, 138, 78, 0.2);
+}
+
+/* 平滑滚动增强 */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px; /* 导航栏高度 */
+}
+
+/* 性能优化：减少重绘 */
+.hero-decoration,
+.floating-leaf {
+    will-change: transform, opacity;
+}
+
+/* 标签悬停增强 */
+.tag {
+    transition: all 300ms var(--ease-spring);
+}
+
+.tag:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(45, 138, 78, 0.3);
+}
+
+/* 资源链接悬停增强 */
+.resource-item {
+    transition: all 300ms var(--ease-smooth);
+    will-change: transform, background-color;
+}
+
+.resource-item:hover {
+    transform: translateX(8px) translateY(-2px);
+    box-shadow: 0 4px 12px rgba(45, 138, 78, 0.15);
+}
+
+/* 日志条目悬停增强 */
+.journal-entry {
+    transition: all 400ms var(--ease-spring);
+}
+
+.journal-entry:hover {
+    transform: translateX(15px) scale(1.01);
+}
+
+/* 想法卡片图标动画 */
+.idea-icon {
+    transition: transform 400ms var(--ease-spring);
+    display: inline-block;
+}
+
+.idea-card:hover .idea-icon {
+    transform: scale(1.2) rotate(10deg);
+}
+
+/* 书籍封面动画 */
+.book-cover {
+    transition: transform 400ms var(--ease-spring);
+}
+
+.book-card:hover .book-cover {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+/* 社交媒体图标动画 */
+.social-card i {
+    transition: all 400ms var(--ease-spring);
+}
+
+.social-card:hover i {
+    transform: scale(1.2) translateY(-5px);
+}
+
+/* 联系卡片图标动画 */
+.contact-card i {
+    transition: transform 400ms var(--ease-spring);
+}
+
+.contact-card:hover i {
+    transform: scale(1.2);
+}
+
+/* 加载动画 */
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.loading-shimmer {
+    background: linear-gradient(90deg, var(--gray-100) 0%, var(--white) 50%, var(--gray-100) 100%);
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite;
+}
+
+/* 减少动画（无障碍） */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .scroll-reveal {
+        opacity: 1;
+        transform: none;
+    }
+}
+@end
