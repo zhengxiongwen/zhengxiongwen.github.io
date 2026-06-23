@@ -151,6 +151,19 @@ function getJournal(id) {
 // ========================================
 
 /**
+ * 横向滚动 - 日志
+ */
+function scrollJournal(direction) {
+    const container = document.getElementById('journalScrollWrapper');
+    if (!container) return;
+    const scrollAmount = 400; // 每次滚动的像素
+    container.scrollBy({
+        left: direction * scrollAmount,
+        behavior: 'smooth'
+    });
+}
+
+/**
  * 渲染日志列表
  */
 function renderJournalList() {

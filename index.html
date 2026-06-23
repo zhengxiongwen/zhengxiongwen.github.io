@@ -126,14 +126,24 @@
 
         <!-- 个人日志 -->
         <section id="journal" class="section">
-            <h2 class="section-title"><i class="fas fa-book-open"></i> 个人日志</h2>
-            <div class="journal-toolbar">
-                <button class="btn btn-primary journal-write-btn" onclick="openJournalEditor()">
-                    <i class="fas fa-pen"></i> 写日志
-                </button>
+            <div class="section-header-with-nav">
+                <h2 class="section-title"><i class="fas fa-book-open"></i> 个人日志</h2>
+                <div class="section-toolbar">
+                    <button class="nav-arrow nav-arrow-left" onclick="scrollJournal(-1)" aria-label="向左">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="btn btn-primary journal-write-btn" onclick="openJournalEditor()">
+                        <i class="fas fa-pen"></i> 写日志
+                    </button>
+                    <button class="nav-arrow nav-arrow-right" onclick="scrollJournal(1)" aria-label="向右">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
             </div>
-            <div class="journal-container" id="journalList">
-                <!-- 日志由 JavaScript 动态加载 -->
+            <div class="horizontal-scroll-wrapper" id="journalScrollWrapper">
+                <div class="journal-container horizontal-scroll" id="journalList">
+                    <!-- 日志由 JavaScript 动态加载 -->
+                </div>
             </div>
         </section>
 
@@ -268,37 +278,59 @@
 
         <!-- 规划安排 -->
         <section id="plan" class="section">
-            <h2 class="section-title"><i class="fas fa-calendar-alt"></i> 规划安排</h2>
-            <div class="plan-container">
-                <div class="plan-period">
-                    <h3>🎯 短期目标（1-3个月）</h3>
-                    <ul class="plan-list">
-                        <li><input type="checkbox" checked> 完成个人网站搭建</li>
-                        <li><input type="checkbox"> 暑假练习剪辑</li>
-                        <li><input type="checkbox"> 读完 3 本书</li>
-                        <li><input type="checkbox"> 制作第一个剪辑作品</li>
-                    </ul>
+            <div class="section-header-with-nav">
+                <h2 class="section-title"><i class="fas fa-calendar-alt"></i> 规划安排</h2>
+                <div class="section-toolbar">
+                    <button class="nav-arrow nav-arrow-left" onclick="scrollPlan(-1)" aria-label="向左">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="btn btn-primary" id="planEditBtn" onclick="togglePlanEditMode()">
+                        <i class="fas fa-edit"></i> <span>编辑</span>
+                    </button>
+                    <button class="btn btn-primary" id="planAddBtn" onclick="openPlanItemEditor()" style="display:none">
+                        <i class="fas fa-plus"></i> 添加任务
+                    </button>
+                    <button class="nav-arrow nav-arrow-right" onclick="scrollPlan(1)" aria-label="向右">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
-                <div class="plan-period">
-                    <h3>🚀 中期目标（3-12个月）</h3>
-                    <ul class="plan-list">
-                        <li><input type="checkbox"> 提升剪辑技能</li>
-                        <li><input type="checkbox"> 建立个人作品集</li>
-                        <li><input type="checkbox"> 学习一项新技能</li>
-                        <li><input type="checkbox"> 扩大社交影响力</li>
-                    </ul>
-                </div>
-                <div class="plan-period">
-                    <h3>🌟 长期愿景（1年以上）</h3>
-                    <ul class="plan-list">
-                        <li><input type="checkbox"> 成为优秀的创作者</li>
-                        <li><input type="checkbox"> 建立个人品牌</li>
-                        <li><input type="checkbox"> 持续学习，不断进步</li>
-                        <li><input type="checkbox"> 帮助更多人成长</li>
-                    </ul>
+            </div>
+            <div class="horizontal-scroll-wrapper" id="planScrollWrapper">
+                <div class="plan-container horizontal-scroll" id="planContainer">
+                    <!-- 规划卡片由 JavaScript 动态加载 -->
                 </div>
             </div>
         </section>
+
+        <!-- 规划任务编辑模态框 -->
+        <div class="modal-overlay" id="planItemModal">
+            <div class="modal-content modal-small">
+                <div class="modal-header">
+                    <h3 id="planItemModalTitle">➕ 添加任务</h3>
+                    <button class="modal-close" onclick="closePlanItemEditor()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="planItemText">任务内容</label>
+                        <input type="text" id="planItemText" placeholder="输入任务内容..." maxlength="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="planItemCategory">所属分类</label>
+                        <select id="planItemCategory">
+                            <option value="short">🎯 短期目标（1-3个月）</option>
+                            <option value="medium">🚀 中期目标（3-12个月）</option>
+                            <option value="long">🌟 长期愿景（1年以上）</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline" onclick="closePlanItemEditor()">取消</button>
+                    <button class="btn btn-primary" onclick="savePlanItem()">
+                        <i class="fas fa-save"></i> 保存
+                    </button>
+                </div>
+            </div>
+        </div>
 
         <!-- 社交媒体 -->
         <section id="social" class="section">
@@ -539,5 +571,6 @@
     </script>
     <script src="script.js"></script>
     <script src="journal.js"></script>
+    <script src="plan.js"></script>
 </body>
 </html>
