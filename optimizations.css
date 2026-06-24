@@ -1,0 +1,492 @@
+/**
+ * ========================================
+ * 优化功能样式 - optimizations.css
+ * ========================================
+ * 包含所有 5 个优化功能的样式：
+ * 1. 成就系统
+ * 2. 数据统计图表
+ * 3. 像素角色自定义
+ * 4. 移动端优化
+ * 5. 每日提醒
+ * ========================================
+ */
+
+/* ========================================
+   成就系统样式
+   ======================================== */
+
+.achievements-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.achievements-header h3 {
+    color: var(--text-primary);
+    font-size: 1.3rem;
+}
+
+.achievements-progress {
+    color: var(--accent);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 1rem;
+}
+
+.achievement-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    background: var(--bg-card);
+    backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--radius);
+    transition: all var(--transition-fast) var(--ease-smooth);
+}
+
+.achievement-badge.unlocked {
+    border-color: rgba(82, 183, 136, 0.3);
+    box-shadow: 0 0 20px rgba(82, 183, 136, 0.2);
+}
+
+.achievement-badge.locked {
+    opacity: 0.5;
+    filter: grayscale(1);
+}
+
+.achievement-badge:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.badge-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.badge-name {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+.achievement-badge.unlocked .badge-name {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* 成就通知 */
+.achievement-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--bg-card);
+    backdrop-filter: var(--glass-blur);
+    border: 2px solid var(--accent);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: var(--shadow-xl), 0 0 30px rgba(82, 183, 136, 0.3);
+    z-index: 100002;
+    transform: translateX(120%);
+    transition: transform 500ms var(--ease-spring);
+    max-width: 400px;
+}
+
+.achievement-notification.show {
+    transform: translateX(0);
+}
+
+.achievement-notification-icon {
+    font-size: 3rem;
+}
+
+.achievement-notification-content {
+    flex: 1;
+}
+
+.achievement-notification-title {
+    color: var(--accent);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+}
+
+.achievement-notification-name {
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+}
+
+.achievement-notification-desc {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+/* ========================================
+   数据统计图表样式
+   ======================================== */
+
+.stats-chart-container {
+    background: var(--bg-card);
+    backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    overflow-x: auto;
+}
+
+.stats-chart-container canvas {
+    width: 100%;
+    height: 400px;
+}
+
+.stats-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
+}
+
+.stats-summary-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--bg-card);
+    backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--radius);
+}
+
+.summary-icon {
+    font-size: 2rem;
+}
+
+.summary-info {
+    flex: 1;
+}
+
+.summary-name {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin-bottom: 0.2rem;
+}
+
+.summary-value {
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.summary-change {
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.summary-change.positive {
+    color: var(--accent);
+}
+
+.summary-change.negative {
+    color: #ef5350;
+}
+
+.stats-empty {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-secondary);
+}
+
+/* ========================================
+   像素角色自定义样式
+   ======================================== */
+
+.customizer-panel {
+    padding: 1rem;
+}
+
+.customizer-panel h3 {
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.customizer-section {
+    margin-bottom: 1.5rem;
+}
+
+.customizer-section label {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 0.8rem;
+}
+
+.color-presets {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 0.8rem;
+}
+
+.color-preset {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid transparent;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all var(--transition-fast) var(--ease-smooth);
+}
+
+.color-preset:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.color-preset.active {
+    border-color: var(--accent);
+    background: rgba(82, 183, 136, 0.15);
+}
+
+.color-preset-preview {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.color-preset-name {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    text-align: center;
+}
+
+.accessory-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 0.8rem;
+}
+
+.accessory-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid transparent;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all var(--transition-fast) var(--ease-smooth);
+}
+
+.accessory-option:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.accessory-option.active {
+    border-color: var(--accent);
+    background: rgba(82, 183, 136, 0.15);
+}
+
+.accessory-icon {
+    font-size: 1.5rem;
+}
+
+.accessory-name {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    text-align: center;
+}
+
+/* ========================================
+   提醒设置样式
+   ======================================== */
+
+.reminder-settings-panel {
+    padding: 1rem;
+}
+
+.reminder-settings-panel h3 {
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.reminder-toggle {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.reminder-status {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+/* 开关按钮 */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 54px;
+    height: 28px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: .4s;
+    border-radius: 28px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--accent);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.reminder-times {
+    margin-bottom: 1.5rem;
+}
+
+.reminder-times label {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 0.8rem;
+}
+
+.time-slots {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+.time-slot {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.time-slot input[type="time"] {
+    flex: 1;
+    padding: 0.6rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+}
+
+.time-remove-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid rgba(244, 67, 54, 0.3);
+    background: rgba(244, 67, 54, 0.15);
+    color: #ef5350;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast) var(--ease-smooth);
+}
+
+.time-remove-btn:hover {
+    background: #ef5350;
+    color: white;
+    border-color: transparent;
+}
+
+.reminder-permission {
+    margin-top: 1.5rem;
+}
+
+/* ========================================
+   移动端优化样式
+   ======================================== */
+
+/* 下拉刷新提示 */
+.pull-to-refresh-hint {
+    transition: top 300ms ease;
+}
+
+/* 移动端优化：增大可点击区域 */
+@media (max-width: 768px) {
+    .nav-arrow,
+    .journal-write-btn,
+    .task-checkbox,
+    .plan-delete-btn {
+        min-width: 44px;
+        min-height: 44px;
+    }
+    
+    .modal-content {
+        max-width: 100%;
+        max-height: 95vh;
+        border-radius: var(--radius-lg);
+        margin: 2.5vh 1rem;
+    }
+    
+    .achievements-grid {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    }
+    
+    .stats-summary-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+}
+
+/* 横向滑动容器触摸优化 */
+.horizontal-scroll {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+}
+
+/* ========================================
+   按钮样式补充
+   ======================================== */
+
+.btn-small {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+}
