@@ -276,7 +276,12 @@
             </div>
         </section>
 
-        <!-- 规划安排 -->
+    <!-- 像素肖像 & 能力值面板 -->
+        <section id="pixelPortrait" class="section">
+            <!-- 由 pixel-portrait.js 动态渲染 -->
+        </section>
+
+        <!-- 规划安排 v2 -->
         <section id="plan" class="section">
             <div class="section-header-with-nav">
                 <h2 class="section-title"><i class="fas fa-calendar-alt"></i> 规划安排</h2>
@@ -288,16 +293,32 @@
                         <i class="fas fa-edit"></i> <span>编辑</span>
                     </button>
                     <button class="btn btn-primary" id="planAddBtn" onclick="openPlanItemEditor()" style="display:none">
-                        <i class="fas fa-plus"></i> 添加任务
+                        <i class="fas fa-plus"></i> 添加
+                    </button>
+                    <button class="btn btn-outline" id="planQuickBtn" onclick="showQuickSelect()" style="display:none">
+                        <i class="fas fa-bolt"></i> 快捷
                     </button>
                     <button class="nav-arrow nav-arrow-right" onclick="scrollPlan(1)" aria-label="向右">
                         <i class="fas fa-chevron-right"></i>
                     </button>
                 </div>
             </div>
-            <div class="horizontal-scroll-wrapper" id="planScrollWrapper">
-                <div class="plan-container horizontal-scroll" id="planContainer">
-                    <!-- 规划卡片由 JavaScript 动态加载 -->
+            
+            <!-- 今日规划 -->
+            <div class="plan-subsection">
+                <h3 class="subsection-title"><i class="fas fa-sun"></i> 今日规划</h3>
+                <div class="horizontal-scroll-wrapper" id="planScrollWrapper">
+                    <div class="today-plan-container horizontal-scroll" id="todayPlanList">
+                        <!-- 由 plan.js 动态渲染 -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 往期规划 -->
+            <div class="plan-subsection">
+                <h3 class="subsection-title"><i class="fas fa-history"></i> 往期规划</h3>
+                <div class="past-plan-container" id="pastPlanList">
+                    <!-- 由 plan.js 动态渲染 -->
                 </div>
             </div>
         </section>
@@ -315,12 +336,28 @@
                         <input type="text" id="planItemText" placeholder="输入任务内容..." maxlength="100">
                     </div>
                     <div class="form-group">
-                        <label for="planItemCategory">所属分类</label>
-                        <select id="planItemCategory">
-                            <option value="short">🎯 短期目标（1-3个月）</option>
-                            <option value="medium">🚀 中期目标（3-12个月）</option>
-                            <option value="long">🌟 长期愿景（1年以上）</option>
+                        <label for="planItemType">任务类型</label>
+                        <select id="planItemType">
+                            <option value="健康">💚 健康/运动</option>
+                            <option value="学习">📚 学习/阅读</option>
+                            <option value="社交">💬 社交/魅力</option>
+                            <option value="创作">🎬 创作/剪辑</option>
+                            <option value="其他">📌 其他任务</option>
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="planItemEnergy">能量值大小</label>
+                        <select id="planItemEnergy">
+                            <option value="small">⚡ 小 (+3)</option>
+                            <option value="medium">⚡⚡ 中 (+6)</option>
+                            <option value="large">⚡⚡⚡ 大 (+10)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>快捷选择</label>
+                        <div class="quick-select-list" id="quickSelectList">
+                            <!-- 由 plan.js 动态渲染 -->
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -572,5 +609,6 @@
     <script src="script.js"></script>
     <script src="journal.js"></script>
     <script src="plan.js"></script>
+    <script src="pixel-portrait.js"></script>
 </body>
 </html>
