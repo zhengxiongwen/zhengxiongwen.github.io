@@ -373,11 +373,14 @@ const AdvancedAnimations = {
     },
     
     // ========================================
-    // 自定义光标
+    // 自定义光标 - 简约风（已禁用）
     // ========================================
     
     initCustomCursor() {
-        // 创建自定义光标
+        // 简约风：使用系统默认光标
+        return;
+        
+        /* 原自定义光标代码已注释
         const cursor = document.createElement('div');
         cursor.id = 'custom-cursor';
         cursor.innerHTML = '<div class="cursor-dot"></div><div class="cursor-ring"></div>';
@@ -408,25 +411,17 @@ const AdvancedAnimations = {
         `;
         document.body.appendChild(cursor);
         
-        // 光标样式
         const cursorStyle = document.createElement('style');
         cursorStyle.textContent = `
-            #custom-cursor {
-                display: none;
-            }
-            
+            #custom-cursor { display: none; }
             @media (hover: hover) and (pointer: fine) {
-                #custom-cursor {
-                    display: block;
-                }
+                #custom-cursor { display: block; }
             }
-            
             #custom-cursor.hovering .cursor-ring {
                 width: 36px !important;
                 height: 36px !important;
                 border-color: rgba(255, 255, 255, 0.5);
             }
-            
             #custom-cursor.clicking .cursor-ring {
                 width: 20px !important;
                 height: 20px !important;
@@ -434,18 +429,14 @@ const AdvancedAnimations = {
         `;
         document.head.appendChild(cursorStyle);
         
-        // 隐藏默认光标
         document.body.style.cursor = 'none';
         
-        // 监听鼠标移动
         let cursorX = 0, cursorY = 0;
         let ringX = 0, ringY = 0;
         
         document.addEventListener('mousemove', (e) => {
             cursorX = e.clientX;
             cursorY = e.clientY;
-            
-            // 光标圆点立即跟随
             cursor.style.left = `${cursorX}px`;
             cursor.style.top = `${cursorY}px`;
             
@@ -456,32 +447,18 @@ const AdvancedAnimations = {
         
         // 光标环延迟跟随
         const animateCursorRing = () => {
-            ringX += (cursorX - ringX) * 0.15;
-            ringY += (cursorY - ringY) * 0.15;
-            
-            cursor.querySelector('.cursor-ring').style.left = `${ringX}px`;
-            cursor.querySelector('.cursor-ring').style.top = `${ringY}px`;
-            
-            requestAnimationFrame(animateCursorRing);
-        };
-        animateCursorRing();
-        
-        // 悬停效果
-        document.querySelectorAll('a, button, .btn, .card, [data-hover]').forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
-        });
-        
-        // 点击效果
-        document.addEventListener('mousedown', () => cursor.classList.add('clicking'));
-        document.addEventListener('mouseup', () => cursor.classList.remove('clicking'));
+        */
     },
     
     // ========================================
-    // 氛围美学 - 粒子背景
+    // 氛围美学 - 粒子背景 - 简约风（已禁用）
     // ========================================
     
     initAmbientParticles() {
+        // 简约风：不启用粒子背景
+        return;
+        
+        /* 原粒子代码已注释
         const container = document.createElement('div');
         container.id = 'ambient-particles';
         container.style.cssText = `
@@ -496,17 +473,16 @@ const AdvancedAnimations = {
         `;
         document.body.appendChild(container);
         
-        // 创建粒子
         const particleCount = 15;
         
         for (let i = 0; i < particleCount; i++) {
             const particle = document.createElement('div');
             particle.className = 'ambient-particle';
             
-            const size = 80 + Math.random() * 40; // 80-120px
+            const size = 80 + Math.random() * 40;
             const startX = Math.random() * 100;
             const startY = Math.random() * 100;
-            const duration = 15 + Math.random() * 5; // 15-20s
+            const duration = 15 + Math.random() * 5;
             const delay = Math.random() * -20;
             
             particle.style.cssText = `
@@ -527,7 +503,6 @@ const AdvancedAnimations = {
                 animation-delay: ${delay}s;
             `;
             
-            // 生成随机贝塞尔曲线路径
             const keyframes = `
                 @keyframes float-${i} {
                     0%, 100% {
@@ -556,7 +531,6 @@ const AdvancedAnimations = {
             container.appendChild(particle);
         }
         
-        // 粒子样式
         const particleStyle = document.createElement('style');
         particleStyle.textContent = `
             @media (prefers-reduced-motion: reduce) {
@@ -566,14 +540,18 @@ const AdvancedAnimations = {
             }
         `;
         document.head.appendChild(particleStyle);
+        */
     },
     
     // ========================================
-    // 光标拖尾
+    // 光标拖尾 - 简约风（已禁用）
     // ========================================
     
     initCursorTrail() {
-        // 创建 3 个残影圆点
+        // 简约风：不创建拖尾效果
+        return;
+        
+        /* 原拖尾代码已注释
         const trailContainer = document.createElement('div');
         trailContainer.id = 'cursor-trail';
         trailContainer.style.cssText = `
@@ -604,126 +582,21 @@ const AdvancedAnimations = {
         
         // 拖尾延迟跟随
         let trailX = 0, trailY = 0;
-        const delay = 120; // ms
-        
-        const animateTrail = () => {
-            trailDots.forEach((dot, index) => {
-                const targetX = index === 0 ? this.state.lastMouseX : trailDots[index - 1].x;
-                const targetY = index === 0 ? this.state.lastMouseY : trailDots[index - 1].y;
-                
-                // 使用 setTimeout 模拟延迟
-                setTimeout(() => {
-                    dot.x += (targetX - dot.x) * 0.3;
-                    dot.y += (targetY - dot.y) * 0.3;
-                    dot.element.style.left = `${dot.x}px`;
-                    dot.element.style.top = `${dot.y}px`;
-                }, index * delay / 3);
-            });
-            
-            requestAnimationFrame(animateTrail);
-        };
-        
-        // 只在非移动端启用
-        if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-            animateTrail();
-        }
-        
-        // 隐藏拖尾样式
-        const trailStyle = document.createElement('style');
-        trailStyle.textContent = `
-            @media (prefers-reduced-motion: reduce) {
-                #cursor-trail {
-                    display: none;
-                }
-            }
-            
-            @media (hover: none) {
-                #cursor-trail {
-                    display: none;
-                }
-            }
-        `;
-        document.head.appendChild(trailStyle);
+        */
     },
     
     // ========================================
-    // 空闲动画 - Hero 标题脉冲
+    // 空闲动画 - 简约风（已禁用）
     // ========================================
     
     initIdleAnimation() {
-        const heroTitle = document.querySelector('.hero h1');
-        if (!heroTitle) return;
-        
-        const resetIdleTimer = () => {
-            this.state.isIdle = false;
-            clearTimeout(this.state.idleTimer);
-            
-            // 重置标题样式
-            heroTitle.style.animation = 'none';
-            heroTitle.offsetHeight; // 强制重绘
-            heroTitle.style.animation = '';
-            
-            // 重新开始计时
-            this.state.idleTimer = setTimeout(() => {
-                this.state.isIdle = true;
-                this.startTitlePulse();
-            }, this.state.idleTimeout);
-        };
-        
-        // 监听用户交互
-        ['mousemove', 'mousedown', 'keydown', 'touchstart', 'scroll'].forEach(event => {
-            window.addEventListener(event, resetIdleTimer, { passive: true });
-        });
-        
-        // 开始计时
-        this.state.idleTimer = setTimeout(() => {
-            this.state.isIdle = true;
-            this.startTitlePulse();
-        }, this.state.idleTimeout);
+        // 简约风：不启用空闲动画
+        return;
     },
     
     startTitlePulse() {
-        const heroTitle = document.querySelector('.hero h1');
-        if (!heroTitle || !this.state.isIdle) return;
-        
-        // 添加脉冲动画
-        const pulseStyle = document.createElement('style');
-        pulseStyle.id = 'title-pulse-style';
-        pulseStyle.textContent = `
-            @keyframes titlePulse {
-                0%, 100% {
-                    opacity: 1;
-                    transform: skewX(0deg);
-                }
-                10% {
-                    opacity: 0.8;
-                    transform: skewX(-2deg);
-                }
-                20% {
-                    opacity: 1;
-                    transform: skewX(2deg);
-                }
-                30% {
-                    opacity: 0.9;
-                    transform: skewX(-1deg);
-                }
-                40% {
-                    opacity: 1;
-                    transform: skewX(0deg);
-                }
-            }
-            
-            .hero h1 {
-                animation: titlePulse 3s ease-in-out infinite;
-            }
-            
-            @media (prefers-reduced-motion: reduce) {
-                .hero h1 {
-                    animation: none;
-                }
-            }
-        `;
-        document.head.appendChild(pulseStyle);
+        // 简约风：不启用标题脉冲
+        return;
     },
     
     // ========================================
