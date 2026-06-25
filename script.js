@@ -734,9 +734,13 @@ const AdvancedAnimations = {
         const hero = document.querySelector('.hero');
         if (!hero) return;
         
+        // 确保只执行一次
+        if (hero.dataset.animated) return;
+        hero.dataset.animated = 'true';
+        
         // Hero 区域入场动画
         const heroContent = hero.querySelector('.hero-content');
-        const heroElements = hero.querySelectorAll('h1, .tagline, .hero-buttons, .floating-leaf');
+        const heroElements = hero.querySelectorAll('h1, .tagline, .hero-buttons');
         
         // 初始状态
         heroElements.forEach((el, index) => {
@@ -744,14 +748,14 @@ const AdvancedAnimations = {
             el.style.transform = 'translateY(30px)';
         });
         
-        // 入场动画
+        // 入场动画 - 只执行一次
         setTimeout(() => {
             heroElements.forEach((el, index) => {
                 setTimeout(() => {
                     el.style.transition = 'opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
                     el.style.opacity = '1';
                     el.style.transform = 'translateY(0)';
-                }, index * 100);
+                }, index * 150);
             });
         }, 300);
     }
@@ -769,4 +773,4 @@ document.addEventListener('DOMContentLoaded', () => {
 window.AdvancedAnimations = AdvancedAnimations;
 
 
-// ========================================\n// ģ̬�򹤾ߺ���\n// ========================================\n\nfunction showModal(modalId) {\n    const modal = document.getElementById(modalId);\n    if (!modal) return;\n    modal.classList.add('active');\n    document.body.style.overflow = 'hidden';\n}\n\nfunction hideModal(modalId) {\n    const modal = document.getElementById(modalId);\n    if (!modal) return;\n    modal.classList.remove('active');\n    document.body.style.overflow = '';\n}\n\n// ���ģ̬���ⲿ�ر�\ndocument.addEventListener('click', (e) => {\n    if (e.target.classList.contains('modal-overlay')) {\n        e.target.classList.remove('active');\n        document.body.style.overflow = '';\n    }\n});\n\n// ESC ���ر�ģ̬��\ndocument.addEventListener('keydown', (e) => {\n    if (e.key === 'Escape') {\n        document.querySelectorAll('.modal-overlay.active').forEach(modal => {\n            modal.classList.remove('active');\n        });\n        document.body.style.overflow = '';\n    }\n});\n\n// Toast ��ʾ\nfunction showToast(message, duration = 3000) {\n    const existing = document.querySelector('.toast-notification');\n    if (existing) existing.remove();\n    \n    const toast = document.createElement('div');\n    toast.className = 'toast-notification';\n    toast.innerHTML = <span></span>;\n    toast.style.cssText = \n        position: fixed;\n        bottom: 20px;\n        left: 50%;\n        transform: translateX(-50%) translateY(100px);\n        background: rgba(82, 183, 136, 0.95);\n        color: white;\n        padding: 12px 24px;\n        border-radius: 30px;\n        font-size: 0.95rem;\n        z-index: 100003;\n        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);\n        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);\n    ;\n    document.body.appendChild(toast);\n    \n    setTimeout(() => {\n        toast.style.transform = 'translateX(-50%) translateY(0)';\n    }, 10);\n    \n    setTimeout(() => {\n        toast.style.transform = 'translateX(-50%) translateY(100px)';\n        setTimeout(() => toast.remove(), 300);\n    }, duration);\n}\n\n// ����\nwindow.showModal = showModal;\nwindow.hideModal = hideModal;\nwindow.showToast = showToast;
+// ========================================\n// ģ̬�򹤾ߺ���\n// ========================================\n\nfunction showModal(modalId) {\n    const modal = document.getElementById(modalId);\n    if (!modal) return;\n    modal.classList.add('active');\n    document.body.style.overflow = 'hidden';\n}\n\nfunction hideModal(modalId) {\n    const modal = document.getElementById(modalId);\n    if (!modal) return;\n    modal.classList.remove('active');\n    document.body.style.overflow = '';\n}\n\n// ���ģ̬���ⲿ�ر�\ndocument.addEventListener('click', (e) => {\n    if (e.target.classList.contains('modal-overlay')) {\n        e.target.classList.remove('active');\n        document.body.style.overflow = '';\n    }\n});\n\n// ESC ���ر�ģ̬��\ndocument.addEventListener('keydown', (e) => {\n    if (e.key === 'Escape') {\n        document.querySelectorAll('.modal-overlay.active').forEach(modal => {\n            modal.classList.remove('active');\n        });\n        document.body.style.overflow = '';\n    }\n});\n\n// Toast ��ʾ\nfunction showToast(message, duration = 3000) {\n    const existing = document.querySelector('.toast-notification');\n    if (existing) existing.remove();\n    \n    const toast = document.createElement('div');\n    toast.className = 'toast-notification';\n    toast.innerHTML = <span></span>;\n    toast.style.cssText = \n        position: fixed;\n        bottom: 20px;\n        left: 50%;\n        transform: translateX(-50%) translateY(100px);\n        background: rgba(82, 183, 136, 0.95);\n        color: white;\n        padding: 12px 24px;\n        border-radius: 30px;\n        font-size: 0.95rem;\n        z-index: 100003;\n        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);\n        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);\n    ;\n    document.body.appendChild(toast);\n    \n    setTimeout(() => {\n        toast.style.transform = 'translateX(-50%) translateY(0)';\n    }, 10);\n    \n    setTimeout(() => {\n        toast.style.transform = 'translateX(-50%) translateY(100px)';\n        setTimeout(() => toast.remove(), 300);\n    }, duration);\n}\n\n// ����\nwindow.showModal = showModal;\nwindow.hideModal = hideModal;\nwindow.showToast = showToast;
