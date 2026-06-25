@@ -243,42 +243,74 @@
             </div>
         </section>
 
-        <!-- 已读书籍 -->
+            <!-- 已读书籍 -->
         <section id="books" class="section">
-            <h2 class="section-title">已读书籍</h2>
-            <div class="books-container">
-                <div class="book-card">
-                    <div class="book-cover">📖</div>
-                    <div class="book-info">
-                        <h3>《认知天性》</h3>
-                        <p class="book-author">[美] 彼得·C.布朗 / 亨利·L.勒迪格三世 / 马克·A.麦克丹尼尔</p>
-                        <p class="book-review">这本书颠覆了我对学习的认知，让我明白了高效学习的真正方法，特别是关于间隔重复和提取练习的部分，非常实用！</p>
-                        <div class="book-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card">
-                    <div class="book-cover">📖</div>
-                    <div class="book-info">
-                        <h3>待添加</h3>
-                        <p class="book-author">等待阅读更多好书</p>
-                        <p class="book-review">持续阅读，不断成长。读书是我提升自我的重要方式。</p>
-                        <div class="book-rating">
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                    </div>
+            <div class="section-header-with-nav">
+                <h2 class="section-title">已读书籍</h2>
+                <div class="section-toolbar">
+                    <button class="btn btn-primary" id="addBookBtn">
+                        <i class="fas fa-plus"></i> 添加书籍
+                    </button>
                 </div>
             </div>
+            <div class="books-container" id="booksList">
+                <!-- 书籍由 JavaScript 动态加载 -->
+            </div>
         </section>
+
+        <!-- 书籍编辑器模态框 -->
+        <div id="bookEditorModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="bookEditorTitle">📚 添加书籍</h3>
+                    <button class="modal-close" onclick="closeBookEditor()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="bookEditorForm">
+                        <div class="form-group">
+                            <label for="bookTitle">书名</label>
+                            <input type="text" id="bookTitle" placeholder="输入书名" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bookAuthor">作者</label>
+                            <input type="text" id="bookAuthor" placeholder="输入作者">
+                        </div>
+                        <div class="form-group">
+                            <label for="bookCover">封面图标</label>
+                            <input type="text" id="bookCover" placeholder="输入emoji或图片URL，如 📖" value="📖">
+                        </div>
+                        <div class="form-group">
+                            <label>评分</label>
+                            <div class="rating-editor" data-rating="0">
+                                <span class="star" data-value="1">★</span>
+                                <span class="star" data-value="2">★</span>
+                                <span class="star" data-value="3">★</span>
+                                <span class="star" data-value="4">★</span>
+                                <span class="star" data-value="5">★</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="bookReview">读书笔记</label>
+                            <textarea id="bookReview" rows="4" placeholder="写下你的读书心得..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="bookTags">标签</label>
+                            <input type="text" id="bookTags" placeholder="多个标签用逗号分隔，如 学习,心理学">
+                        </div>
+                        <div class="form-group">
+                            <label for="bookDate">阅读日期</label>
+                            <input type="date" id="bookDate">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline" onclick="closeBookEditor()">取消</button>
+                    <button class="btn btn-primary" onclick="saveBookFromEditor()">
+                        <i class="fas fa-save"></i> 保存
+                    </button>
+                </div>
+            </div>
+        </div>
 
     <!-- 像素肖像 & 能力值面板 -->
         <section id="pixelPortrait" class="section">
@@ -643,6 +675,7 @@
     <script src="animation-engine.js"></script>
     <script src="script.js"></script>
     <script src="journal.js"></script>
+    <script src="books.js"></script>
     <script src="plan.js"></script>
     <script src="pixel-portrait.js"></script>
     <script src="achievement.js"></script>

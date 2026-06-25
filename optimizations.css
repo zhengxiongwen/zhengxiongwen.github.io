@@ -490,3 +490,88 @@ input:checked + .slider:before {
     padding: 0.5rem 1rem;
     font-size: 0.85rem;
 }
+
+/* ========================================
+   书籍编辑器样式
+   ======================================== */
+
+.rating-editor {
+    display: flex;
+    gap: 0.25rem;
+    cursor: pointer;
+}
+
+.rating-editor .star {
+    font-size: 1.5rem;
+    color: var(--border-color);
+    transition: color 0.2s, transform 0.1s;
+}
+
+.rating-editor .star.active {
+    color: #FFD700;
+}
+
+.rating-editor .star:hover {
+    transform: scale(1.2);
+}
+
+#bookEditorModal .modal-content {
+    max-width: 500px;
+    width: 90%;
+}
+
+#bookEditorModal .form-group {
+    margin-bottom: 1rem;
+}
+
+#bookEditorModal .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+#bookEditorModal .form-group input,
+#bookEditorModal .form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#bookEditorModal .form-group input:focus,
+#bookEditorModal .form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(82, 183, 136, 0.15);
+}
+
+#bookEditorModal .form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.book-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.btn-sm {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+}
+
+.btn-danger {
+    background: var(--error, #ff4757);
+    color: white;
+    border: none;
+}
+
+.btn-danger:hover {
+    background: var(--error-dark, #ff3344);
+}
