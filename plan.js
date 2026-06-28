@@ -135,7 +135,8 @@ function addTodayTask(text, type, energy) {
         type: type || '其他',
         energy: energy || 'small',
         completed: false,
-        completedAt: null
+        completedAt: null,
+        mood: null
     };
     plan.push(newTask);
     saveTodayPlan(plan);
@@ -187,14 +188,17 @@ function renderTodayPlan() {
         plan.forEach(task => {
             const typeConfig = TASK_TYPES[task.type] || TASK_TYPES['其他'];
             const energyConfig = ENERGY_SIZES[task.energy] || ENERGY_SIZES['small'];
+            const moodStr = task.mood ? `<span class="task-mood">${task.mood}</span>` : '';
+            const moodBg = task.mood ? `<div class="task-mood-background">${task.mood}</div>` : '';
             
             html += `
                 <li class="today-plan-item ${task.completed ? 'completed' : ''}">
+                    ${moodBg}
                     <div class="task-checkbox" onclick="handleCompleteTask('${task.id}')">
                         ${task.completed ? '<i class="fas fa-check-circle"></i>' : '<i class="far fa-circle"></i>'}
                     </div>
                     <div class="task-content">
-                        <div class="task-text">${escapeHtmlPlan(task.text)}</div>
+                        <div class="task-text">${escapeHtmlPlan(task.text)}${moodStr}</div>
                         <div class="task-tags">
                             <span class="task-tag tag-type">${typeConfig.icon} ${typeConfig.label}</span>
                             <span class="task-tag tag-energy">${energyConfig.icon} ${energyConfig.label}</span>
@@ -244,10 +248,11 @@ function renderPastPlans() {
                     <div class="past-plan-progress">完成 ${completedCount}/${totalCount}</div>
                     ${dayPlan.tasks.map(task => {
                         const typeConfig = TASK_TYPES[task.type] || TASK_TYPES['其他'];
+                        const moodStr = task.mood ? `<span class="past-task-mood">${task.mood}</span>` : '';
                         return `
                             <div class="past-plan-task ${task.completed ? 'completed' : ''}">
                                 <span class="past-task-type">${typeConfig.icon}</span>
-                                <span class="past-task-text">${escapeHtmlPlan(task.text)}</span>
+                                <span class="past-task-text">${escapeHtmlPlan(task.text)}${moodStr}</span>
                                 ${task.completed ? '<i class="fas fa-check task-done-icon"></i>' : ''}
                             </div>
                         `;
@@ -289,6 +294,9 @@ function togglePlanEditMode() {
 // 事件处理
 // ========================================
 
+let currentCompletingTaskId = null;
+let currentSelectedMood = null;
+
 /**
  * 完成任务
  */
@@ -298,15 +306,62 @@ function handleCompleteTask(taskId) {
     
     if (!task || task.completed) return;
     
-    // 显示确认弹窗
-    if (confirm(`确认完成「${task.text}」？\n\n完成此任务将增加 ${TASK_TYPES[task.type].label} 能力值`)) {
-        completeTask(taskId);
+    // 显示心情选择弹窗
+    currentCompletingTaskId = taskId;
+    currentSelectedMood = null;
+    
+    document.getElementById('taskMoodTaskName').textContent = `完成任务：「${task.text}」`;
+    
+    // 清除心情选中
+    document.querySelectorAll('#taskMoodSelector .mood-option').forEach(el => {
+        el.classList.remove('selected');
+    });
+    
+    showModal('taskMoodModal');
+}
+
+/**
+ * 选择任务心情
+ */
+function selectTaskMood(el) {
+    document.querySelectorAll('#taskMoodSelector .mood-option').forEach(opt => opt.classList.remove('selected'));
+    el.classList.add('selected');
+    currentSelectedMood = el.dataset.mood;
+}
+
+/**
+ * 确认任务心情
+ */
+function confirmTaskMood() {
+    if (!currentCompletingTaskId) return;
+    
+    const plan = getTodayPlan();
+    const task = plan.find(t => t.id === currentCompletingTaskId);
+    
+    if (task) {
+        task.completed = true;
+        task.completedAt = new Date().toISOString();
+        task.mood = currentSelectedMood;
+        saveTodayPlan(plan);
+        
+        closeTaskMoodPicker();
         renderTodayPlan();
+        
         if (window.renderPixelPortrait) {
             window.renderPixelPortrait();
         }
-        showToast('🎉 任务完成！能力值已提升');
+        
+        showToast(currentSelectedMood ? `🎉 任务完成！${currentSelectedMood}` : '🎉 任务完成！');
     }
+}
+
+/**
+ * 关闭任务心情选择器
+ */
+function closeTaskMoodPicker() {
+    hideModal('taskMoodModal');
+    currentCompletingTaskId = null;
+    currentSelectedMood = null;
 }
 
 /**

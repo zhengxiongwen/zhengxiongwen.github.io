@@ -139,6 +139,9 @@
                     <button class="btn btn-primary journal-write-btn" onclick="openJournalEditor()">
                         <i class="fas fa-pen"></i> 写日志
                     </button>
+                    <button class="btn btn-outline" onclick="resetJournalsToDefault()" title="重置为默认日志">
+                        <i class="fas fa-redo"></i> 重置
+                    </button>
                     <button class="nav-arrow nav-arrow-right" onclick="scrollJournal(1)" aria-label="向右">
                         <i class="fas fa-chevron-right"></i>
                     </button>
@@ -175,15 +178,41 @@
                         <label for="journalMood">心情</label>
                         <div class="mood-selector">
                             <span class="mood-option" data-mood="😊" onclick="selectMood(this)">😊</span>
+                            <span class="mood-option" data-mood="😴" onclick="selectMood(this)">😴</span>
                             <span class="mood-option" data-mood="🤔" onclick="selectMood(this)">🤔</span>
                             <span class="mood-option" data-mood="💪" onclick="selectMood(this)">💪</span>
                             <span class="mood-option" data-mood="🎯" onclick="selectMood(this)">🎯</span>
                             <span class="mood-option" data-mood="🌟" onclick="selectMood(this)">🌟</span>
-                            <span class="mood-option" data-mood="😴" onclick="selectMood(this)">😴</span>
                             <span class="mood-option" data-mood="🔥" onclick="selectMood(this)">🔥</span>
                             <span class="mood-option" data-mood="❤️" onclick="selectMood(this)">❤️</span>
+                            <span class="mood-option" data-mood="😢" onclick="selectMood(this)">😢</span>
+                            <span class="mood-option" data-mood="😠" onclick="selectMood(this)">😠</span>
+                            <span class="mood-option" data-mood="🤣" onclick="selectMood(this)">🤣</span>
+                            <span class="mood-option" data-mood="😌" onclick="selectMood(this)">😌</span>
                         </div>
                         <input type="hidden" id="journalMood" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="journalWeather">天气</label>
+                        <div class="weather-selector">
+                            <span class="weather-option" data-weather="☀️" onclick="selectWeather(this)">☀️ 晴</span>
+                            <span class="weather-option" data-weather="⛅" onclick="selectWeather(this)">⛅ 多云</span>
+                            <span class="weather-option" data-weather="🌧️" onclick="selectWeather(this)">🌧️ 雨</span>
+                            <span class="weather-option" data-weather="⛈️" onclick="selectWeather(this)">⛈️ 雷雨</span>
+                            <span class="weather-option" data-weather="🌤️" onclick="selectWeather(this)">🌤️ 阴</span>
+                            <span class="weather-option" data-weather="❄️" onclick="selectWeather(this)">❄️ 雪</span>
+                            <span class="weather-option" data-weather="🌈" onclick="selectWeather(this)">🌈 彩虹</span>
+                            <span class="weather-option" data-weather="🌪️" onclick="selectWeather(this)">🌪️ 大风</span>
+                        </div>
+                        <input type="hidden" id="journalWeather" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="journalTags">标签</label>
+                        <input type="text" id="journalTags" placeholder="多个标签用逗号分隔，如 学习,思考">
+                    </div>
+                    <div class="form-group">
+                        <label for="journalLocation">地点</label>
+                        <input type="text" id="journalLocation" placeholder="记录你的位置，如 家里、咖啡馆">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -430,6 +459,35 @@
                     <button class="btn btn-outline" onclick="closePlanItemEditor()">取消</button>
                     <button class="btn btn-primary" onclick="savePlanItem()">
                         <i class="fas fa-save"></i> 保存
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 任务完成心情选择模态框 -->
+        <div class="modal-overlay" id="taskMoodModal">
+            <div class="modal-content modal-small">
+                <div class="modal-header">
+                    <h3>😊 完成任务 - 选择心情</h3>
+                    <button class="modal-close" onclick="closeTaskMoodPicker()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p class="task-mood-task-name" id="taskMoodTaskName"></p>
+                    <div class="mood-selector mood-selector-large" id="taskMoodSelector">
+                        <span class="mood-option" data-mood="😊" onclick="selectTaskMood(this)">😊<small>开心</small></span>
+                        <span class="mood-option" data-mood="💪" onclick="selectTaskMood(this)">💪<small>有成就感</small></span>
+                        <span class="mood-option" data-mood="🎯" onclick="selectTaskMood(this)">🎯<small>专注</small></span>
+                        <span class="mood-option" data-mood="🌟" onclick="selectTaskMood(this)">🌟<small>充实</small></span>
+                        <span class="mood-option" data-mood="😌" onclick="selectTaskMood(this)">😌<small>平静</small></span>
+                        <span class="mood-option" data-mood="🔥" onclick="selectTaskMood(this)">🔥<small>激情</small></span>
+                        <span class="mood-option" data-mood="😴" onclick="selectTaskMood(this)">😴<small>疲惫</small></span>
+                        <span class="mood-option" data-mood="🤔" onclick="selectTaskMood(this)">🤔<small>思考中</small></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline" onclick="closeTaskMoodPicker()">跳过</button>
+                    <button class="btn btn-primary" onclick="confirmTaskMood()">
+                        <i class="fas fa-check"></i> 确认
                     </button>
                 </div>
             </div>

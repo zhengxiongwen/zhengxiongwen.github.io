@@ -12,6 +12,9 @@
  *   content: string,
  *   date: string (YYYY-MM-DD),
  *   mood: string (emoji),
+ *   weather: string (emoji),
+ *   tags: array (标签),
+ *   location: string (地点),
  *   createdAt: string (ISO),
  *   updatedAt: string (ISO)
  * }
@@ -32,6 +35,9 @@ const DEFAULT_JOURNALS = [
         content: '终于拥有了自己的个人网站！这是一个新的开始。高中刚毕业，我希望通过这个平台记录我的成长、分享我的想法、展示我的作品。期待未来的每一天，期待成为更好的自己！',
         date: '2026-06-21',
         mood: '🌟',
+        weather: '☀️',
+        tags: ['个人网站', '成长'],
+        location: '家里',
         createdAt: '2026-06-21T10:00:00.000Z',
         updatedAt: '2026-06-21T10:00:00.000Z'
     },
@@ -41,8 +47,23 @@ const DEFAULT_JOURNALS = [
         content: '高中毕业后的第一个暑假，我决定利用这段时间好好提升自己。主要目标是练习视频剪辑，希望能在开学前掌握这项技能。加油！',
         date: '2026-06-15',
         mood: '💪',
+        weather: '⛅',
+        tags: ['暑假', '学习计划'],
+        location: '家里',
         createdAt: '2026-06-15T10:00:00.000Z',
         updatedAt: '2026-06-15T10:00:00.000Z'
+    },
+    {
+        id: '1719000000003',
+        title: '读完《认知天性》',
+        content: '这本书真的改变了我对学习的认知。原来重复阅读并不是好方法，提取练习和间隔重复才是高效学习的关键。以后要用这些方法去学习！',
+        date: '2026-06-10',
+        mood: '😊',
+        weather: '🌤️',
+        tags: ['读书', '学习'],
+        location: '图书馆',
+        createdAt: '2026-06-10T10:00:00.000Z',
+        updatedAt: '2026-06-10T10:00:00.000Z'
     }
 ];
 
@@ -87,6 +108,9 @@ function addJournal(journal) {
         content: journal.content || '',
         date: journal.date || new Date().toISOString().split('T')[0],
         mood: journal.mood || '',
+        weather: journal.weather || '',
+        tags: journal.tags || [],
+        location: journal.location || '',
         createdAt: now,
         updatedAt: now
     };
@@ -186,9 +210,15 @@ function renderJournalList() {
         const dateObj = new Date(journal.date + 'T00:00:00');
         const day = dateObj.getDate();
         const month = `${dateObj.getFullYear()}.${String(dateObj.getMonth() + 1).padStart(2, '0')}`;
-        const preview = journal.content.length > 120 
-            ? journal.content.substring(0, 120) + '...' 
+        const preview = journal.content.length > 80 
+            ? journal.content.substring(0, 80) + '...' 
             : journal.content;
+
+        const weatherStr = journal.weather ? `${journal.weather} ` : '';
+        const locationStr = journal.location ? ` 📍${journal.location}` : '';
+        const tagsStr = (journal.tags || []).length > 0 
+            ? `<div class="journal-tags">${(journal.tags || []).map(t => `<span class="journal-tag">${escapeHtml(t)}</span>`).join('')}</div>` 
+            : '';
 
         return `
             <article class="journal-entry scroll-reveal" onclick="openJournalDetail('${journal.id}')" style="cursor:pointer">
@@ -197,8 +227,10 @@ function renderJournalList() {
                     <span class="month">${month}</span>
                 </div>
                 <div class="journal-content">
-                    <h3>${journal.mood ? journal.mood + ' ' : ''}${escapeHtml(journal.title)}</h3>
+                    <h3>${journal.mood ? journal.mood + ' ' : ''}${weatherStr}${escapeHtml(journal.title)}</h3>
                     <p>${escapeHtml(preview)}</p>
+                    ${tagsStr}
+                    ${locationStr ? `<div class="journal-location">${locationStr}</div>` : ''}
                 </div>
                 <div class="journal-actions" onclick="event.stopPropagation()">
                     <button class="journal-action-btn" onclick="editJournal('${journal.id}')" title="编辑">
@@ -243,8 +275,13 @@ function openJournalEditor() {
     document.getElementById('journalDate').value = new Date().toISOString().split('T')[0];
     document.getElementById('journalContent').value = '';
     document.getElementById('journalMood').value = '';
+    document.getElementById('journalWeather').value = '';
+    document.getElementById('journalTags').value = '';
+    document.getElementById('journalLocation').value = '';
     // 清除心情选中
     document.querySelectorAll('.mood-option').forEach(el => el.classList.remove('selected'));
+    // 清除天气选中
+    document.querySelectorAll('.weather-option').forEach(el => el.classList.remove('selected'));
     
     showModal('journalModal');
 }
@@ -262,10 +299,18 @@ function editJournal(id) {
     document.getElementById('journalDate').value = journal.date;
     document.getElementById('journalContent').value = journal.content;
     document.getElementById('journalMood').value = journal.mood || '';
+    document.getElementById('journalWeather').value = journal.weather || '';
+    document.getElementById('journalTags').value = (journal.tags || []).join(', ');
+    document.getElementById('journalLocation').value = journal.location || '';
     
     // 设置心情选中
     document.querySelectorAll('.mood-option').forEach(el => {
         el.classList.toggle('selected', el.dataset.mood === journal.mood);
+    });
+    
+    // 设置天气选中
+    document.querySelectorAll('.weather-option').forEach(el => {
+        el.classList.toggle('selected', el.dataset.weather === journal.weather);
     });
     
     showModal('journalModal');
@@ -279,6 +324,10 @@ function saveJournal() {
     const content = document.getElementById('journalContent').value.trim();
     const date = document.getElementById('journalDate').value;
     const mood = document.getElementById('journalMood').value;
+    const weather = document.getElementById('journalWeather').value;
+    const tagsStr = document.getElementById('journalTags').value.trim();
+    const tags = tagsStr ? tagsStr.split(',').map(t => t.trim()).filter(t => t) : [];
+    const location = document.getElementById('journalLocation').value.trim();
 
     // 验证
     if (!title) {
@@ -292,10 +341,10 @@ function saveJournal() {
 
     if (currentEditId) {
         // 编辑模式
-        updateJournal(currentEditId, { title, content, date, mood });
+        updateJournal(currentEditId, { title, content, date, mood, weather, tags, location });
     } else {
         // 新建模式
-        addJournal({ title, content, date, mood });
+        addJournal({ title, content, date, mood, weather, tags, location });
     }
 
     closeJournalEditor();
@@ -329,14 +378,22 @@ function openJournalDetail(id) {
     const dateObj = new Date(journal.date + 'T00:00:00');
     const dateStr = `${dateObj.getFullYear()}年${dateObj.getMonth() + 1}月${dateObj.getDate()}日`;
 
+    const moodStr = journal.mood ? `${journal.mood} ` : '📝';
+    const weatherStr = journal.weather ? `${journal.weather} ` : '';
+    const locationStr = journal.location ? ` 📍${journal.location}` : '';
+    const tagsStr = (journal.tags || []).length > 0 
+        ? `<div class="detail-tags">${(journal.tags || []).map(t => `<span class="detail-tag">${escapeHtml(t)}</span>`).join('')}</div>` 
+        : '';
+
     document.getElementById('detailTitle').textContent = '📖 日志详情';
     document.getElementById('detailMeta').innerHTML = `
-        <span class="detail-mood">${journal.mood || '📝'}</span>
-        <span class="detail-date"><i class="fas fa-calendar-alt"></i> ${dateStr}</span>
+        <span class="detail-mood">${moodStr}${weatherStr}</span>
+        <span class="detail-date"><i class="fas fa-calendar-alt"></i> ${dateStr}${locationStr}</span>
         ${journal.updatedAt !== journal.createdAt ? '<span class="detail-edited"><i class="fas fa-pen"></i> 已编辑</span>' : ''}
     `;
     document.getElementById('detailContent').innerHTML = `
         <h2 class="detail-title">${escapeHtml(journal.title)}</h2>
+        ${tagsStr}
         <div class="detail-text">${escapeHtml(journal.content).replace(/\n/g, '<br>')}</div>
     `;
 
@@ -394,6 +451,28 @@ function selectMood(el) {
     document.querySelectorAll('.mood-option').forEach(opt => opt.classList.remove('selected'));
     el.classList.add('selected');
     document.getElementById('journalMood').value = el.dataset.mood;
+}
+
+// ========================================
+// 天气选择器
+// ========================================
+
+function selectWeather(el) {
+    document.querySelectorAll('.weather-option').forEach(opt => opt.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById('journalWeather').value = el.dataset.weather;
+}
+
+// ========================================
+// 重置日志到默认状态
+// ========================================
+
+function resetJournalsToDefault() {
+    if (confirm('确定要重置日志到默认状态吗？当前所有日志将被替换。')) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(DEFAULT_JOURNALS));
+        renderJournalList();
+        showToast('✅ 日志已重置为默认状态');
+    }
 }
 
 // ========================================

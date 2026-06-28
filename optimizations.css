@@ -577,6 +577,153 @@ input:checked + .slider:before {
 }
 
 /* ========================================
+   天气选择器样式
+   ======================================== */
+
+.weather-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+}
+
+.weather-option {
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+    border: 2px solid transparent;
+}
+
+.weather-option:hover {
+    background: var(--bg-tertiary);
+}
+
+.weather-option.selected {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary-dark);
+}
+
+/* ========================================
+   日志标签样式
+   ======================================== */
+
+.journal-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-top: 0.5rem;
+}
+
+.journal-tag {
+    padding: 0.2rem 0.6rem;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.journal-location {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 0.3rem;
+}
+
+.detail-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0.75rem 0;
+}
+
+.detail-tag {
+    padding: 0.3rem 0.8rem;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* ========================================
+   任务完成心情样式
+   ======================================== */
+
+.mood-selector-large {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.mood-selector-large .mood-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.75rem;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 2rem;
+    border: 2px solid transparent;
+    min-width: 80px;
+}
+
+.mood-selector-large .mood-option small {
+    font-size: 0.75rem;
+    margin-top: 0.3rem;
+    color: var(--text-secondary);
+}
+
+.mood-selector-large .mood-option:hover {
+    background: var(--bg-tertiary);
+    transform: scale(1.1);
+}
+
+.mood-selector-large .mood-option.selected {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary-dark);
+}
+
+.mood-selector-large .mood-option.selected small {
+    color: white;
+}
+
+.task-mood {
+    display: inline-block;
+    font-size: 1.2rem;
+    margin-left: 0.5rem;
+    opacity: 0.7;
+}
+
+.task-mood-background {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3rem;
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+.today-plan-item.completed .task-mood-background {
+    opacity: 0.25;
+}
+
+.task-mood-task-name {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+/* ========================================
    导入/导出按钮样式
    ======================================== */
 
