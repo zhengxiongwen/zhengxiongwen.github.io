@@ -473,8 +473,108 @@ function shakeElement(el) {
 // ========================================
 
 document.addEventListener('DOMContentLoaded', function() {
+    // 检查是否需要初始化默认数据
+    const data = localStorage.getItem(STORAGE_KEY);
+    if (!data) {
+        // 首次访问，初始化默认日志
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(DEFAULT_JOURNALS));
+    }
+    
     renderJournalList();
+    
+    // 添加导入/导出按钮
+    addImportExportButtons();
 });
+
+/**
+ * 添加导入/导出按钮
+ */
+function addImportExportButtons() {
+    const section = document.getElementById('journal');
+    if (!section) return;
+    
+    const toolbar = section.querySelector('.section-toolbar');
+    if (!toolbar) return;
+    
+    // 检查是否已添加
+    if (toolbar.querySelector('.import-export-btns')) return;
+    
+    const btnGroup = document.createElement('div');
+    btnGroup.className = 'import-export-btns';
+    btnGroup.style.cssText = 'display:flex; gap:0.5rem; margin-left:0.5rem;';
+    btnGroup.innerHTML = `
+        <button class="btn btn-sm btn-outline" onclick="exportJournals()" title="导出日志数据">
+            <i class="fas fa-download"></i> 导出
+        </button>
+        <button class="btn btn-sm btn-outline" onclick="importJournals()" title="导入日志数据">
+            <i class="fas fa-upload"></i> 导入
+        </button>
+        <input type="file" id="journalImportFile" accept=".json" style="display:none" onchange="handleJournalImport(event)">
+    `;
+    toolbar.appendChild(btnGroup);
+}
+
+/**
+ * 导出日志数据
+ */
+function exportJournals() {
+    const journals = getJournals();
+    const dataStr = JSON.stringify(journals, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `日志备份_${new Date().toISOString().split('T')[0]}.json`;
+    link.click();
+    
+    URL.revokeObjectURL(url);
+    alert('日志已导出！你可以把这个文件保存到电脑，换设备时再导入。');
+}
+
+/**
+ * 触发导入文件选择
+ */
+function importJournals() {
+    document.getElementById('journalImportFile').click();
+}
+
+/**
+ * 处理导入文件
+ */
+function handleJournalImport(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const imported = JSON.parse(e.target.result);
+            if (!Array.isArray(imported)) {
+                alert('文件格式错误：不是有效的日志数据');
+                return;
+            }
+            
+            if (confirm(`确定要导入 ${imported.length} 条日志吗？当前日志将被合并。`)) {
+                const current = getJournals();
+                // 合并数据（去重）
+                const merged = [...imported, ...current];
+                const unique = merged.filter((journal, index, self) => 
+                    index === self.findIndex(j => j.id === journal.id)
+                );
+                saveJournals(unique);
+                renderJournalList();
+                alert(`导入成功！共 ${unique.length} 条日志。`);
+            }
+        } catch (err) {
+            alert('文件解析失败：' + err.message);
+        }
+    };
+    reader.readAsText(file);
+    
+    // 清空 input，允许重复选择同一文件
+    event.target.value = '';
+}
 
 // 导出给全局（供 HTML onclick 调用）
 window.openJournalEditor = openJournalEditor;
