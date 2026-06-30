@@ -14,18 +14,19 @@
     <nav class="navbar">
         <div class="nav-brand">🌿 郑雄文的空间</div>
         <ul class="nav-links">
+            <li class="nav-category">📁 展示栏</li>
             <li><a href="#about">关于我</a></li>
             <li><a href="#skills">技能</a></li>
-            <li><a href="#pixelPortrait">个人状态</a></li>
             <li><a href="#achievements">成就</a></li>
-            <li><a href="#statsChart">趋势</a></li>
-            <li><a href="#journal">日志</a></li>
-            <li><a href="#ideas">创新想法</a></li>
             <li><a href="#books">已读书籍</a></li>
-            <li><a href="#plan">规划安排</a></li>
             <li><a href="#social">社交账号</a></li>
-            <li><a href="#resources">资源收集</a></li>
             <li><a href="#contact">联系方式</a></li>
+            <li class="nav-category">🔧 工作栏</li>
+            <li><a href="#pixelPortrait">个人状态</a></li>
+            <li><a href="#diary">日记</a></li>
+            <li><a href="#ideas">灵感</a></li>
+            <li><a href="#plan">计划</a></li>
+            <li><a href="#resources">资源收集</a></li>
         </ul>
         <button class="menu-toggle" onclick="toggleMenu()">
             <i class="fas fa-bars"></i>
@@ -128,147 +129,134 @@
             </div>
         </section>
 
-        <!-- 个人日志 -->
-        <section id="journal" class="section">
+        <!-- 个人日记（原日志迁移） -->
+        <section id="diary" class="section">
             <div class="section-header-with-nav">
-                <h2 class="section-title">个人日志</h2>
+                <h2 class="section-title">个人日记</h2>
                 <div class="section-toolbar">
-                    <button class="nav-arrow nav-arrow-left" onclick="scrollJournal(-1)" aria-label="向左">
+                    <button class="nav-arrow nav-arrow-left" onclick="scrollDiary(-1)" aria-label="向左">
                         <i class="fas fa-chevron-left"></i>
                     </button>
-                    <button class="btn btn-primary journal-write-btn" onclick="openJournalEditor()">
-                        <i class="fas fa-pen"></i> 写日志
+                    <button class="btn btn-primary journal-write-btn" onclick="openDiaryEditor()">
+                        <i class="fas fa-pen"></i> 写日记
                     </button>
-                    <button class="btn btn-outline" onclick="resetJournalsToDefault()" title="重置为默认日志">
-                        <i class="fas fa-redo"></i> 重置
-                    </button>
-                    <button class="nav-arrow nav-arrow-right" onclick="scrollJournal(1)" aria-label="向右">
+                    <button class="nav-arrow nav-arrow-right" onclick="scrollDiary(1)" aria-label="向右">
                         <i class="fas fa-chevron-right"></i>
                     </button>
                 </div>
             </div>
-            <div class="horizontal-scroll-wrapper" id="journalScrollWrapper">
-                <div class="journal-container horizontal-scroll" id="journalList">
-                    <!-- 日志由 JavaScript 动态加载 -->
+            <div class="horizontal-scroll-wrapper" id="diaryScrollWrapper">
+                <div class="journal-container horizontal-scroll" id="diaryList">
+                    <!-- 日记由 diary.js 动态加载 -->
                 </div>
             </div>
         </section>
 
-        <!-- 日志编辑器模态框 -->
-        <div class="modal-overlay" id="journalModal">
+        <!-- 日记编辑器模态框 -->
+        <div class="modal-overlay" id="diaryModal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 id="modalTitle">📝 写日志</h3>
-                    <button class="modal-close" onclick="closeJournalEditor()">&times;</button>
+                    <h3 id="diaryModalTitle">📝 写日记</h3>
+                    <button class="modal-close" onclick="closeDiaryEditor()">&times;</button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="journalTitle">标题</label>
-                        <input type="text" id="journalTitle" placeholder="给这篇日志取个标题..." maxlength="100">
+                        <label for="diaryTitle">标题</label>
+                        <input type="text" id="diaryTitle" placeholder="给这篇日记取个标题..." maxlength="100">
                     </div>
                     <div class="form-group">
-                        <label for="journalDate">日期</label>
-                        <input type="date" id="journalDate">
+                        <label for="diaryDate">日期</label>
+                        <input type="date" id="diaryDate">
                     </div>
                     <div class="form-group">
-                        <label for="journalContent">内容</label>
-                        <textarea id="journalContent" placeholder="写下你的想法..." rows="8"></textarea>
+                        <label for="diaryContent">内容</label>
+                        <textarea id="diaryContent" placeholder="写下你的想法..." rows="8"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="journalMood">心情</label>
+                        <label for="diaryMood">心情</label>
                         <div class="mood-selector">
-                            <span class="mood-option" data-mood="😊" onclick="selectMood(this)">😊</span>
-                            <span class="mood-option" data-mood="😴" onclick="selectMood(this)">😴</span>
-                            <span class="mood-option" data-mood="🤔" onclick="selectMood(this)">🤔</span>
-                            <span class="mood-option" data-mood="💪" onclick="selectMood(this)">💪</span>
-                            <span class="mood-option" data-mood="🎯" onclick="selectMood(this)">🎯</span>
-                            <span class="mood-option" data-mood="🌟" onclick="selectMood(this)">🌟</span>
-                            <span class="mood-option" data-mood="🔥" onclick="selectMood(this)">🔥</span>
-                            <span class="mood-option" data-mood="❤️" onclick="selectMood(this)">❤️</span>
-                            <span class="mood-option" data-mood="😢" onclick="selectMood(this)">😢</span>
-                            <span class="mood-option" data-mood="😠" onclick="selectMood(this)">😠</span>
-                            <span class="mood-option" data-mood="🤣" onclick="selectMood(this)">🤣</span>
-                            <span class="mood-option" data-mood="😌" onclick="selectMood(this)">😌</span>
+                            <span class="diary-mood-option mood-option" data-mood="😊" onclick="selectDiaryMood(this)">😊</span>
+                            <span class="diary-mood-option mood-option" data-mood="😴" onclick="selectDiaryMood(this)">😴</span>
+                            <span class="diary-mood-option mood-option" data-mood="🤔" onclick="selectDiaryMood(this)">🤔</span>
+                            <span class="diary-mood-option mood-option" data-mood="💪" onclick="selectDiaryMood(this)">💪</span>
+                            <span class="diary-mood-option mood-option" data-mood="🎯" onclick="selectDiaryMood(this)">🎯</span>
+                            <span class="diary-mood-option mood-option" data-mood="🌟" onclick="selectDiaryMood(this)">🌟</span>
+                            <span class="diary-mood-option mood-option" data-mood="🔥" onclick="selectDiaryMood(this)">🔥</span>
+                            <span class="diary-mood-option mood-option" data-mood="❤️" onclick="selectDiaryMood(this)">❤️</span>
+                            <span class="diary-mood-option mood-option" data-mood="😢" onclick="selectDiaryMood(this)">😢</span>
+                            <span class="diary-mood-option mood-option" data-mood="😠" onclick="selectDiaryMood(this)">😠</span>
+                            <span class="diary-mood-option mood-option" data-mood="🤣" onclick="selectDiaryMood(this)">🤣</span>
+                            <span class="diary-mood-option mood-option" data-mood="😌" onclick="selectDiaryMood(this)">😌</span>
                         </div>
-                        <input type="hidden" id="journalMood" value="">
+                        <input type="hidden" id="diaryMood" value="">
                     </div>
                     <div class="form-group">
-                        <label for="journalWeather">天气</label>
+                        <label for="diaryWeather">天气</label>
                         <div class="weather-selector">
-                            <span class="weather-option" data-weather="☀️" onclick="selectWeather(this)">☀️ 晴</span>
-                            <span class="weather-option" data-weather="⛅" onclick="selectWeather(this)">⛅ 多云</span>
-                            <span class="weather-option" data-weather="🌧️" onclick="selectWeather(this)">🌧️ 雨</span>
-                            <span class="weather-option" data-weather="⛈️" onclick="selectWeather(this)">⛈️ 雷雨</span>
-                            <span class="weather-option" data-weather="🌤️" onclick="selectWeather(this)">🌤️ 阴</span>
-                            <span class="weather-option" data-weather="❄️" onclick="selectWeather(this)">❄️ 雪</span>
-                            <span class="weather-option" data-weather="🌈" onclick="selectWeather(this)">🌈 彩虹</span>
-                            <span class="weather-option" data-weather="🌪️" onclick="selectWeather(this)">🌪️ 大风</span>
+                            <span class="diary-weather-option weather-option" data-weather="☀️" onclick="selectDiaryWeather(this)">☀️ 晴</span>
+                            <span class="diary-weather-option weather-option" data-weather="⛅" onclick="selectDiaryWeather(this)">⛅ 多云</span>
+                            <span class="diary-weather-option weather-option" data-weather="🌧️" onclick="selectDiaryWeather(this)">🌧️ 雨</span>
+                            <span class="diary-weather-option weather-option" data-weather="⛈️" onclick="selectDiaryWeather(this)">⛈️ 雷雨</span>
+                            <span class="diary-weather-option weather-option" data-weather="🌤️" onclick="selectDiaryWeather(this)">🌤️ 阴</span>
+                            <span class="diary-weather-option weather-option" data-weather="❄️" onclick="selectDiaryWeather(this)">❄️ 雪</span>
+                            <span class="diary-weather-option weather-option" data-weather="🌈" onclick="selectDiaryWeather(this)">🌈 彩虹</span>
+                            <span class="diary-weather-option weather-option" data-weather="🌪️" onclick="selectDiaryWeather(this)">🌪️ 大风</span>
                         </div>
-                        <input type="hidden" id="journalWeather" value="">
+                        <input type="hidden" id="diaryWeather" value="">
                     </div>
                     <div class="form-group">
-                        <label for="journalTags">标签</label>
-                        <input type="text" id="journalTags" placeholder="多个标签用逗号分隔，如 学习,思考">
+                        <label for="diaryTags">标签</label>
+                        <input type="text" id="diaryTags" placeholder="多个标签用逗号分隔，如 学习,思考">
                     </div>
                     <div class="form-group">
-                        <label for="journalLocation">地点</label>
-                        <input type="text" id="journalLocation" placeholder="记录你的位置，如 家里、咖啡馆">
+                        <label for="diaryLocation">地点</label>
+                        <input type="text" id="diaryLocation" placeholder="记录你的位置，如 家里、咖啡馆">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-outline" onclick="closeJournalEditor()">取消</button>
-                    <button class="btn btn-primary" onclick="saveJournal()">
+                    <button class="btn btn-outline" onclick="closeDiaryEditor()">取消</button>
+                    <button class="btn btn-primary" onclick="saveDiary()">
                         <i class="fas fa-save"></i> 保存
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- 日志详情模态框 -->
-        <div class="modal-overlay" id="journalDetailModal">
+        <!-- 日记详情模态框 -->
+        <div class="modal-overlay" id="diaryDetailModal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 id="detailTitle">📖 日志详情</h3>
-                    <button class="modal-close" onclick="closeJournalDetail()">&times;</button>
+                    <h3 id="diaryDetailTitle">📖 日记详情</h3>
+                    <button class="modal-close" onclick="closeDiaryDetail()">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <div class="detail-meta" id="detailMeta"></div>
-                    <div class="detail-content" id="detailContent"></div>
+                    <div class="detail-meta" id="diaryDetailMeta"></div>
+                    <div class="detail-content" id="diaryDetailContent"></div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-outline" onclick="closeJournalDetail()">关闭</button>
-                    <button class="btn btn-primary" id="detailEditBtn" onclick="editJournalFromDetail()">
+                    <button class="btn btn-outline" onclick="closeDiaryDetail()">关闭</button>
+                    <button class="btn btn-primary" id="diaryDetailEditBtn" onclick="editDiaryFromDetail()">
                         <i class="fas fa-edit"></i> 编辑
                     </button>
-                    <button class="btn btn-danger" id="detailDeleteBtn" onclick="deleteJournalFromDetail()">
+                    <button class="btn btn-danger" id="diaryDetailDeleteBtn" onclick="deleteDiaryFromDetail()">
                         <i class="fas fa-trash"></i> 删除
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- 创新想法 -->
+        <!-- 灵感碎片 -->
         <section id="ideas" class="section">
-            <h2 class="section-title">创新想法</h2>
-            <div class="ideas-container">
-                <div class="idea-card">
-                    <div class="idea-icon">🎬</div>
-                    <h3>剪辑作品集</h3>
-                    <p>通过这个暑假的练习，我想制作一个属于自己的视频剪辑作品集，展示我的进步和创意。</p>
-                    <span class="idea-status status-progress">进行中</span>
+            <div class="section-header-with-nav">
+                <h2 class="section-title">灵感碎片</h2>
+                <div class="section-toolbar">
+                    <button class="btn btn-primary" onclick="openIdeaEditor()">
+                        <i class="fas fa-lightbulb"></i> 记录灵感
+                    </button>
                 </div>
-                <div class="idea-card">
-                    <div class="idea-icon">🌐</div>
-                    <h3>个人品牌打造</h3>
-                    <p>通过这个网站和社交媒体，逐步建立自己的个人品牌，分享我的学习和成长过程。</p>
-                    <span class="idea-status status-thinking">思考中</span>
-                </div>
-                <div class="idea-card">
-                    <div class="idea-icon">📚</div>
-                    <h3>知识分享平台</h3>
-                    <p>未来希望能建立一个知识分享平台，把我的学习心得和方法分享给更多人。</p>
-                    <span class="idea-status status-dream">梦想</span>
-                </div>
+            </div>
+            <div class="ideas-list" id="ideasList">
+                <!-- 由 ideas.js 动态加载 -->
             </div>
         </section>
 
@@ -365,21 +353,10 @@
             </div>
         </section>
         
-        <!-- 数据统计 -->
-        <section id="statsChart" class="section">
-            <h2 class="section-title">能力值趋势</h2>
-            <div class="stats-chart-container">
-                <canvas id="statsChartCanvas" width="800" height="400"></canvas>
-            </div>
-            <div id="statsSummary">
-                <!-- 由 stats-chart.js 动态渲染 -->
-            </div>
-        </section>
-
-        <!-- 规划安排 v2 -->
+        <!-- 规划安排 -->
         <section id="plan" class="section">
             <div class="section-header-with-nav">
-                <h2 class="section-title">规划安排</h2>
+                <h2 class="section-title">计划</h2>
                 <div class="section-toolbar">
                     <button class="nav-arrow nav-arrow-left" onclick="scrollPlan(-1)" aria-label="向左">
                         <i class="fas fa-chevron-left"></i>
@@ -488,6 +465,64 @@
                     <button class="btn btn-outline" onclick="closeTaskMoodPicker()">跳过</button>
                     <button class="btn btn-primary" onclick="confirmTaskMood()">
                         <i class="fas fa-check"></i> 确认
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 灵感编辑器模态框 -->
+        <div class="modal-overlay" id="ideaModal">
+            <div class="modal-content modal-small">
+                <div class="modal-header">
+                    <h3 id="ideaModalTitle">💡 记录灵感</h3>
+                    <button class="modal-close" onclick="closeIdeaEditor()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="ideaTitle">标题</label>
+                        <input type="text" id="ideaTitle" placeholder="给你的灵感取个名字..." maxlength="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="ideaDate">日期</label>
+                        <input type="date" id="ideaDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="ideaContent">想法内容</label>
+                        <textarea id="ideaContent" placeholder="写出你的灵感和想法..." rows="6"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="ideaTags">标签</label>
+                        <input type="text" id="ideaTags" placeholder="多个标签用逗号分隔，如 创作,AI">
+                        <small style="color:var(--text-muted);font-size:0.8rem;">自定义标签，按逗号分隔</small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline" onclick="closeIdeaEditor()">取消</button>
+                    <button class="btn btn-primary" onclick="saveIdea()">
+                        <i class="fas fa-save"></i> 保存
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 灵感详情模态框 -->
+        <div class="modal-overlay" id="ideaDetailModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="ideaDetailTitle">💡 灵感详情</h3>
+                    <button class="modal-close" onclick="closeIdeaDetail()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="detail-meta" id="ideaDetailMeta"></div>
+                    <div class="detail-content" id="ideaDetailContent"></div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline" onclick="closeIdeaDetail()">关闭</button>
+                    <button class="btn btn-primary" onclick="editIdeaFromDetail()">
+                        <i class="fas fa-edit"></i> 编辑
+                    </button>
+                    <button class="btn btn-danger" onclick="deleteIdeaFromDetail()">
+                        <i class="fas fa-trash"></i> 删除
                     </button>
                 </div>
             </div>
@@ -732,12 +767,12 @@
     </script>
     <script src="animation-engine.js"></script>
     <script src="script.js"></script>
-    <script src="journal.js"></script>
+    <script src="diary.js"></script>
+    <script src="ideas.js"></script>
     <script src="books.js"></script>
     <script src="plan.js"></script>
     <script src="pixel-portrait.js"></script>
     <script src="achievement.js"></script>
-    <script src="stats-chart.js"></script>
     <script src="pixel-customizer.js"></script>
     <script src="mobile-optimize.js"></script>
     <script src="daily-reminder.js"></script>

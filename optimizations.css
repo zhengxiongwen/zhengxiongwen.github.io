@@ -737,3 +737,178 @@ input:checked + .slider:before {
     padding: 0.4rem 0.8rem;
     font-size: 0.8rem;
 }
+
+/* ========================================
+   灵感碎片样式
+   ======================================== */
+
+.ideas-tag-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    padding: 0.5rem 0;
+}
+
+.ideas-tag-filter {
+    padding: 0.3rem 0.8rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    background: var(--bg-tertiary);
+    transition: all 0.2s;
+    user-select: none;
+}
+
+.ideas-tag-filter:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.ideas-tag-filter.active {
+    background: var(--primary);
+    color: white;
+    font-weight: 600;
+}
+
+.ideas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.idea-card {
+    background: var(--bg-card);
+    backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: all var(--transition-fast) var(--ease-smooth);
+    position: relative;
+}
+
+.idea-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary);
+}
+
+.idea-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+}
+
+.idea-card-header h4 {
+    font-size: 1rem;
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.4;
+}
+
+.idea-card-date {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    margin-left: 0.5rem;
+}
+
+.idea-card-content {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0 0 0.75rem;
+}
+
+.ideas-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-bottom: 0.5rem;
+}
+
+.ideas-card-tag {
+    padding: 0.15rem 0.5rem;
+    background: var(--primary);
+    color: white;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+}
+
+.idea-card-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.idea-card:hover .idea-card-actions {
+    opacity: 1;
+}
+
+.idea-card-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.6rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: all 0.2s;
+}
+
+.idea-card-btn:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.idea-card-delete:hover {
+    background: var(--error);
+    color: white;
+    border-color: var(--error);
+}
+
+.ideas-empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-muted);
+}
+
+.ideas-empty-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+/* ========================================
+   导航栏分类样式
+   ======================================== */
+
+.nav-category {
+    padding: 0.5rem 1.2rem 0.3rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    pointer-events: none;
+    border-bottom: 1px solid var(--border);
+    margin: 0.5rem 0.5rem 0.25rem;
+}
+
+.nav-category:first-child {
+    margin-top: 0;
+}
+
+@media (max-width: 768px) {
+    .ideas-grid {
+        grid-template-columns: 1fr;
+    }
+    .nav-category {
+        padding: 0.4rem 1rem 0.2rem;
+        font-size: 0.7rem;
+    }
+}
